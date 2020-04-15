@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: df467f47c4e8b6c4d98484904c93ff4d
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - prefSelectTile: {instanceID: 0}
+  - prefAllowedTile: {instanceID: 0}
+  - prefEnemyTile: {instanceID: 0}
+  - prefMidTile: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

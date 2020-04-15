@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 38f7dbbc03d795d4fbe1999e9fdc91c5
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - prefSelectTile: {fileID: 1333511979136996, guid: e860aff6f484c47d7b713cbebd3ee5d3,
+      type: 3}
+  - prefAllowedTile: {fileID: 1555274435638532, guid: 4cb3dfa64c6fa4774b49468d68a0845b,
+      type: 3}
+  - prefEnemyTile: {fileID: 1341371675672656, guid: c4a2ba9f320f1459996f001bc0387b40,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 713c6f3811d9bd949af608228573ab82
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - prefSelectTile: {fileID: 1333511979136996, guid: e860aff6f484c47d7b713cbebd3ee5d3,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

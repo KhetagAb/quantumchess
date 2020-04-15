@@ -1,0 +1,35 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Selection : MonoBehaviour {
+    protected GameObject selectTile;
+    static protected int k = 0;
+
+    protected void showObjOnGrid(GameObject obj, Vector2Int gridPoint) {
+        obj.transform.position = Geometry.PointFromGrid(gridPoint);
+        obj.SetActive(true);
+    }
+    protected void hideObj(GameObject obj) {
+        obj.SetActive(false);
+    }
+
+    protected bool isCorrectHit(RaycastHit hitPlace) {
+        Vector2Int grid = getGridFromHit(hitPlace);
+        return (0 <= grid.x && grid.x <= 7 && 0 <= grid.y && grid.y <= 7);
+    }
+    protected Vector2Int getGridFromHit(RaycastHit hitplace) {
+        return Geometry.GridFromPoint(hitplace.point);
+    }
+
+    protected int? getPieceIDAtGrid(Vector2Int gridPoint) {
+        return GameManager.instance.getPieceIDAtGrid(gridPoint);
+    }
+    protected bool isFriendlyPieceAtGrid(Vector2Int gridPoint) {
+        int? id = getPieceIDAtGrid(gridPoint);
+        if (id == null)
+            return false;
+
+        return GameManager.instance.currentPlayer.playersPieces.Contains((int) id);
+    }
+}
