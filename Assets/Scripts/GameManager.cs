@@ -66,7 +66,6 @@ public class GameManager : MonoBehaviour {
         for (int i = 0; i < 8; i++)
             InstallSetPiece(11, i, 6);
 
-        toRoque.roqueNormalize();
         quantumNormalize();
 
         Display.EnterState();
@@ -107,7 +106,6 @@ public class GameManager : MonoBehaviour {
         }
 
         resolveConflicts(finishGridPoint);
-        toRoque.roqueNormalize();
         quantumNormalize();
     }
 
@@ -129,7 +127,6 @@ public class GameManager : MonoBehaviour {
         layers.AddRange(toAddLayers);
 
         resolveConflicts(finishGridPoint);
-        toRoque.roqueNormalize();
         quantumNormalize();
     }
 
@@ -213,6 +210,13 @@ public class GameManager : MonoBehaviour {
         return getPieceIDAtGrid(gridPoint.x, gridPoint.y);
     }
 
+    public PieceType? getPieceTypeByGrid(Vector2Int grid) {
+        if (getPieceIDAtGrid(grid) == null)
+            return null;
+
+        return getPieceTypeByID((int) getPieceIDAtGrid(grid));
+    }
+
     public void quantumNormalize() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -234,7 +238,7 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    // =========================[STEP & BOARD]=========================
+    // =========================[STEP]=========================
     public void selectSimplePieceAtGrid(Vector2Int gridPoint) {
         Display.selectSimplePieceAtGrid(gridPoint);
     }
@@ -245,10 +249,6 @@ public class GameManager : MonoBehaviour {
 
     public void deselectPieceAtGrid(Vector2Int gridPoint) {
         Display.deselectPieceAtGrid(gridPoint);
-    }
-
-    public void updateTheButtonsStatus() {
-        toRoque.updateTheButtonsStatus();
     }
 
     // =========================[FUNCTIONAL]=========================

@@ -1,0 +1,187 @@
+fileFormatVersion: 2
+guid: 339375eda42382d42a017ac97b506954
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: BishopBlack
+    100002: BishopWhite
+    100004: Camera
+    100006: ChessBoard
+    100008: Cube
+    100010: Frame
+    100012: KingBlack
+    100014: KingWhite
+    100016: KnightBlack
+    100018: KnightWhite
+    100020: Light
+    100022: PawnBlack
+    100024: PawnWhite
+    100026: QueenBlack
+    100028: QueenWhite
+    100030: RookBlack
+    100032: RookWhite
+    100034: //RootNode
+    100036: Cube.001
+    100038: Fill
+    400000: BishopBlack
+    400002: BishopWhite
+    400004: Camera
+    400006: ChessBoard
+    400008: Cube
+    400010: Frame
+    400012: KingBlack
+    400014: KingWhite
+    400016: KnightBlack
+    400018: KnightWhite
+    400020: Light
+    400022: PawnBlack
+    400024: PawnWhite
+    400026: QueenBlack
+    400028: QueenWhite
+    400030: RookBlack
+    400032: RookWhite
+    400034: //RootNode
+    400036: Cube.001
+    400038: Fill
+    2000000: Camera
+    2100000: ChessBoard
+    2100002: No Name
+    2300000: BishopBlack
+    2300002: BishopWhite
+    2300004: ChessBoard
+    2300006: Cube
+    2300008: Frame
+    2300010: KingBlack
+    2300012: KingWhite
+    2300014: KnightBlack
+    2300016: KnightWhite
+    2300018: PawnBlack
+    2300020: PawnWhite
+    2300022: QueenBlack
+    2300024: QueenWhite
+    2300026: RookBlack
+    2300028: RookWhite
+    2300030: Cube.001
+    2300032: Fill
+    3300000: BishopBlack
+    3300002: BishopWhite
+    3300004: ChessBoard
+    3300006: Cube
+    3300008: Frame
+    3300010: KingBlack
+    3300012: KingWhite
+    3300014: KnightBlack
+    3300016: KnightWhite
+    3300018: PawnBlack
+    3300020: PawnWhite
+    3300022: QueenBlack
+    3300024: QueenWhite
+    3300026: RookBlack
+    3300028: RookWhite
+    3300030: Cube.001
+    3300032: Fill
+    4300000: RookBlack
+    4300002: KnightBlack
+    4300004: BishopBlack
+    4300006: QueenBlack
+    4300008: KingBlack
+    4300010: PawnBlack
+    4300012: PawnWhite
+    4300014: KingWhite
+    4300016: QueenWhite
+    4300018: BishopWhite
+    4300020: KnightWhite
+    4300022: RookWhite
+    4300024: ChessBoard
+    4300026: Frame
+    4300028: Cube
+    4300030: Cube.001
+    4300032: Fill
+    10800000: Light
+    2186277476908879412: ImportLogs
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

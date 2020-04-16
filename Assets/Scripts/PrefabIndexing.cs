@@ -19,6 +19,7 @@ public class PrefabIndexing : MonoBehaviour {
     [SerializeField] public Material enemyTile;
     [SerializeField] public Material allowedTile;
     [SerializeField] public Material selectTile;
+    [SerializeField] public Material unselectRoque;
 
     [SerializeField] public GameObject prefSelectTile;
     [SerializeField] public GameObject prefAllowedTile;
@@ -42,13 +43,13 @@ public class PrefabIndexing : MonoBehaviour {
     [SerializeField] private GameObject prefWhiteQueenAlpha;     // 1
     [SerializeField] private GameObject prefWhiteKnightAlpha;    // 2
     [SerializeField] private GameObject prefWhiteBishopAlpha;    // 3
-    [SerializeField] private GameObject prefWhiteRookAlpha;      // 4
+    [SerializeField] public GameObject prefWhiteRookAlpha;      // 4
     [SerializeField] private GameObject prefWhitePawnAlpha;      // 5
     [SerializeField] private GameObject prefBlackKingAlpha;      // 6
     [SerializeField] private GameObject prefBlackQueenAlpha;     // 7
     [SerializeField] private GameObject prefBlackKnightAlpha;    // 8
     [SerializeField] private GameObject prefBlackBishopAlpha;    // 9
-    [SerializeField] private GameObject prefBlackRookAlpha;      // 10
+    [SerializeField] public GameObject prefBlackRookAlpha;      // 10
     [SerializeField] private GameObject prefBlackPawnAlpha;      // 11
 
     private void  Awake() {

@@ -65,7 +65,6 @@ public class Layer {
         return (getPieceIDAtGrid(gridPoint) == null);
     }
 
-    // претендент на костыли *
     // подумать бы над оптимайзом
     public void updateRoqueStatus(PieceType pieceType, Vector2Int startPoint, Vector2Int finishGrid) { 
         for (int i = 0; i < roques.Length; i++)

@@ -35,6 +35,11 @@ public class StepSimpleSelection : StepSelection {
     }
 
     public void Activate(Vector2Int gridPoint) {
+        if (GameManager.instance.getPieceTypeByGrid(gridPoint) == PieceType.King) {
+            ToRoque goTo = GetComponent<ToRoque>();
+            goTo.TryActivate();
+        }
+
         ActiveSelection(gridPoint, false);
 
         GameManager.instance.selectSimplePieceAtGrid(startGridPoint);
@@ -43,6 +48,9 @@ public class StepSimpleSelection : StepSelection {
     public void Disactivate() {
         if (!this.enabled)
             return;
+
+        ToRoque goTo = GetComponent<ToRoque>();
+        goTo.Disactivate();
 
         DisactiveSelection();
     }

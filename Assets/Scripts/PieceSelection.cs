@@ -21,7 +21,7 @@ public class PieceSelection : Selection {
 
             if (Input.GetMouseButtonDown(0)) {
                 if (isFriendlyPieceAtGrid(gridPoint))
-                    ExitState(gridPoint);
+                    Exit(gridPoint);
             }
         } else {
             hideObj(selectTile);
@@ -36,7 +36,7 @@ public class PieceSelection : Selection {
         this.enabled = false;
     }
 
-    private void ExitState(Vector2Int gridPoint) {
+    private void Exit(Vector2Int gridPoint) {
         Disactivate();
 
         hideObj(selectTile);

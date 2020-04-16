@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: whiteSimSeleceted
-  m_Shader: {fileID: 4800000, guid: 2f4eef0f80bf8114899e480918129cdb, type: 3}
+  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _GLOSSINESS_FROM_BASE_ALPHA _SPECULAR_COLOR
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -153,7 +153,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _CameraFadeParams: {r: 0, g: 0, b: 0, a: 0}
-    - _Color: {r: 0.9529412, g: 0.6117647, b: 0.07058824, a: 1}
+    - _Color: {r: 1, g: 0.7529412, b: 0.28235295, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}

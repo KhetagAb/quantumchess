@@ -65,8 +65,7 @@ public class StepAndBoardDisplay : MonoBehaviour {
             }
         }
 
-        GameManager.instance.nextPlayer();
-        GameManager.instance.updateTheButtonsStatus();
+       // GameManager.instance.nextPlayer();
         showCurrentPlayer.text = "Current player: " + GameManager.instance.currentPlayer.name.ToString();
 
         PieceSelection goTo = GetComponent<PieceSelection>();
@@ -81,6 +80,7 @@ public class StepAndBoardDisplay : MonoBehaviour {
         return (int) (((float) GameManager.quantumState[col, row].y / sum) * 100);
     }
 
+    // =========================[STEPS]========================= 
     public void selectSimplePieceAtGrid(Vector2Int gridPoint) {
         int col = gridPoint.x, row = gridPoint.y;
         MeshRenderer mesh = storageObjects[col, row].GetComponentInChildren<MeshRenderer>();
