@@ -968,11 +968,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9255b58535ae87b46b2744f95b90cbab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alphaRoque:
-  - {fileID: 513754513491618864, guid: 78fa6654248247242a74ba04d7e889b7, type: 3}
-  - {fileID: 8365903377052740774, guid: 89eb531ad1deef04d992733b9ab78418, type: 3}
-  - {fileID: 5384882982401998681, guid: e7de2c3591ea8934ebf3b5f9c22d239d, type: 3}
-  - {fileID: 5163261087921874195, guid: 0fa90d39916225744a7208d9910796dd, type: 3}
   roques:
   - {fileID: 785375308}
   - {fileID: 1387960796}
