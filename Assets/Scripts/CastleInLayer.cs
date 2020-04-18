@@ -40,8 +40,8 @@ public class CastleInLayer {
     private static List<Vector2Int>[] kingMoves = new List<Vector2Int>[] {
         new List<Vector2Int>() { kingPlaces[0], betweenCastling[0][1] },                                // [0]
         new List<Vector2Int>() { kingPlaces[0], betweenCastling[1][1] },                                // [1]
-        new List<Vector2Int>() { rookPlaces[1], betweenCastling[2][1] },                                // [2]
-        new List<Vector2Int>() { rookPlaces[1], betweenCastling[3][1] }                                 // [3]
+        new List<Vector2Int>() { kingPlaces[1], betweenCastling[2][1] },                                // [2]
+        new List<Vector2Int>() { kingPlaces[1], betweenCastling[3][1] }                                 // [3]
     };
 
     // ===================================================[CASTLE] 
