@@ -25,7 +25,7 @@ public class StepQuantumSelection : StepSelection {
             Vector2Int gridPoint = getGridFromHit(hitPlace);
             showObjOnGrid(selectTile, gridPoint);
 
-            updateAlphaStatus(gridPoint, midGridPoint);
+            updateAlphaStatus(gridPoint, midGridPoint); // хочеца заменить
 
             if (midGridPoint != null) {
                 if (Input.GetMouseButtonDown(0)) {
@@ -57,6 +57,7 @@ public class StepQuantumSelection : StepSelection {
         hideAllowedGrids();
         showAllowedGrids(startGridPoint, midGridPoint, true);
 
+        // Не очень нравится
         setActiveTileInGrid((Vector2Int) midGridPoint, false);
     }
 
@@ -97,7 +98,7 @@ public class StepQuantumSelection : StepSelection {
         GameManager.instance.quantumMove(startGridPoint, (Vector2Int) midGridPoint, gridPoint);
 
         StepAndBoardDisplay goTo = GetComponent<StepAndBoardDisplay>();
-        goTo.EnterState(startGridPoint, gridPoint, true);
+        goTo.Activate(startGridPoint, gridPoint, true);
     }
 
     private void Cancel() {

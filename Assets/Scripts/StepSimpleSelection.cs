@@ -18,7 +18,7 @@ public class StepSimpleSelection : StepSelection {
             Vector2Int gridPoint = getGridFromHit(hitPlace);
             showObjOnGrid(selectTile, gridPoint);
 
-            updateAlphaStatus(gridPoint);
+            updateAlphaStatus(gridPoint); // Хочеца заменить
 
             if (Input.GetMouseButtonDown(0)) {
                 if (gridPoint == startGridPoint && getPieceTypeAtGrid(startGridPoint) != PieceType.Pawn)
@@ -35,9 +35,9 @@ public class StepSimpleSelection : StepSelection {
     }
 
     public void Activate(Vector2Int gridPoint) {
-        if (GameManager.instance.getPieceTypeByGrid(gridPoint) == PieceType.King) {
-            ToRoque goTo = GetComponent<ToRoque>();
-            goTo.TryActivate();
+        if (GameManager.instance.getPieceTypeByGrid(gridPoint) == PieceType.King && (gridPoint == new Vector2Int(4, 0) || gridPoint == new Vector2Int(4, 7))) {
+            Castling goTo = GetComponent<Castling>();
+            goTo.Activate();
         }
 
         ActiveSelection(gridPoint, false);
@@ -49,7 +49,7 @@ public class StepSimpleSelection : StepSelection {
         if (!this.enabled)
             return;
 
-        ToRoque goTo = GetComponent<ToRoque>();
+        Castling goTo = GetComponent<Castling>();
         goTo.Disactivate();
 
         DisactiveSelection();
@@ -68,7 +68,7 @@ public class StepSimpleSelection : StepSelection {
         GameManager.instance.simpleMove(startGridPoint, gridPoint);
 
         StepAndBoardDisplay goTo = GetComponent<StepAndBoardDisplay>();
-        goTo.EnterState(startGridPoint, gridPoint, false);
+        goTo.Activate(startGridPoint, gridPoint, false);
     }
 
     private void Cancel() {

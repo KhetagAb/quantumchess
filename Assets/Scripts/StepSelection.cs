@@ -10,6 +10,7 @@ public class StepSelection : Selection {
 
     protected GameObject alphaPiece;
 
+    // Не очень нравится.
     protected void updateAlphaStatus(Vector2Int curGridPoint, Vector2Int? midGridPoint = null) {
         if (allowedGrids.Contains(curGridPoint)) {
             showAllTiles(midGridPoint);
@@ -27,13 +28,7 @@ public class StepSelection : Selection {
         List<GameObject> allowedGridsObjects = new List<GameObject>();
 
         foreach (Vector2Int curGrid in allowedGrids) {
-            GameObject tempPrefab;
-
-            if (GameManager.instance.getPieceIDAtGrid(curGrid) != null)
-                tempPrefab = PrefabIndexing.instance.prefEnemyTile;
-            else
-                tempPrefab = PrefabIndexing.instance.prefAllowedTile;
-
+            GameObject tempPrefab = PrefabIndexing.instance.getCorrectTile(curGrid);
             allowedGridsObjects.Add(Instantiate(tempPrefab, Geometry.PointFromGrid(curGrid), Quaternion.identity, gameObject.transform));
         }
 
@@ -79,6 +74,7 @@ public class StepSelection : Selection {
         this.enabled = false;
     }
     
+    // не очень нравится
     protected void showAllTiles(Vector2Int? except = null) {
         hideObj(alphaPiece);
 
@@ -87,8 +83,8 @@ public class StepSelection : Selection {
                 allowedGridsObjects[i].SetActive(true);
         }
     }
-    protected void setActiveTileInGrid(Vector2Int? gridPoint, bool status, Vector2Int? midGridPoint = null) {
-        if (gridPoint == null || (gridPoint != null  && gridPoint == midGridPoint))
+    protected void setActiveTileInGrid(Vector2Int? gridPoint, bool status, Vector2Int? except = null) {
+        if (gridPoint == null || (gridPoint != null  && gridPoint == except))
             return;
 
         allowedGridsObjects[allowedGrids.IndexOf((Vector2Int) gridPoint)].SetActive(status);

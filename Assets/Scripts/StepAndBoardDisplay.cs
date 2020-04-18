@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
@@ -19,34 +17,29 @@ public class StepAndBoardDisplay : MonoBehaviour {
 
     private void FixedUpdate() {
         // ? плавное удаленеи фигур
-        ExitState();
+        Disactivate();
     }
 
-    public void AddPieceAtGrid(int ID, int col, int row) {
-        GameObject tempPrefab = PrefabIndexing.getPrefabByID(ID);
-        storageObjects[col, row] = Instantiate(tempPrefab, Geometry.PointFromGrid(new Vector2Int(col, row)), tempPrefab.transform.rotation, gameObject.transform);
-        IDs[col, row] = ID;
-    }
-
-    public void DeletePieceAtGrid(int col, int row) {
-        Destroy(storageObjects[col, row]);
-        storageObjects[col, row] = null;
-        IDs[col, row] = null;
-    }
-
-    public void EnterState() {
+    public void Activate() {
         this.enabled = true;
     }
 
-    public void EnterState(Vector2Int startGridPoint, Vector2Int finishGridPoint, bool isQuant) {
+    public void Activate(Vector2Int startGridPoint, Vector2Int finishGridPoint, bool isQuant) {
         // просчёт порядка действий ?
 
-        EnterState();
+        Activate();
     }
 
-    private void ExitState() {
+    private void Disactivate() {
         this.enabled = false;
 
+        updateTheBoard();
+
+        PieceSelection goTo = GetComponent<PieceSelection>();
+        goTo.Activate();
+    }
+
+    private void updateTheBoard() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 int? IDAtGrid = GameManager.instance.getPieceIDAtGrid(i, j);
@@ -65,14 +58,11 @@ public class StepAndBoardDisplay : MonoBehaviour {
             }
         }
 
-       // GameManager.instance.nextPlayer();
+        GameManager.instance.nextPlayer();
         showCurrentPlayer.text = "Current player: " + GameManager.instance.currentPlayer.name.ToString();
-
-        PieceSelection goTo = GetComponent<PieceSelection>();
-        goTo.Activate();
     }
 
-    int quantumDebug(int col, int row) {
+    private int quantumDebug(int col, int row) {
         int sum = 0;
         for (int i = 0; i < GameManager.layers.Count; i++)
             sum += GameManager.layers[i].weight;
@@ -80,31 +70,32 @@ public class StepAndBoardDisplay : MonoBehaviour {
         return (int) (((float) GameManager.quantumState[col, row].y / sum) * 100);
     }
 
+    // =========================[ADD/DEL]========================
+    private void AddPieceAtGrid(int ID, int col, int row) {
+        GameObject tempPrefab = PrefabIndexing.getPrefabByID(ID);
+        storageObjects[col, row] = Instantiate(tempPrefab, Geometry.PointFromGrid(new Vector2Int(col, row)), tempPrefab.transform.rotation, gameObject.transform);
+        IDs[col, row] = ID;
+    }
+
+    private void DeletePieceAtGrid(int col, int row) {
+        Destroy(storageObjects[col, row]);
+        storageObjects[col, row] = null;
+        IDs[col, row] = null;
+    }
+
     // =========================[STEPS]========================= 
     public void selectSimplePieceAtGrid(Vector2Int gridPoint) {
-        int col = gridPoint.x, row = gridPoint.y;
-        MeshRenderer mesh = storageObjects[col, row].GetComponentInChildren<MeshRenderer>();
-
-        if (GameManager.instance.currentPlayer.name == PlayerType.White)
-            mesh.material = PrefabIndexing.instance.simpleSelWhiteMaterial;
-        else
-            mesh.material = PrefabIndexing.instance.simpleSelBlackMaterial;
+        MeshRenderer mesh = storageObjects[gridPoint.x, gridPoint.y].GetComponentInChildren<MeshRenderer>();
+        mesh.material = PrefabIndexing.instance.getCorrectSelectMaterial(GameManager.instance.currentPlayer.name, false);
     }
 
     public void selectQuantumPieceAtGrid(Vector2Int gridPoint) {
-        int col = gridPoint.x, row = gridPoint.y;
-        MeshRenderer mesh = storageObjects[col, row].GetComponentInChildren<MeshRenderer>();
-
-        if (GameManager.instance.currentPlayer.name == PlayerType.White)
-            mesh.material = PrefabIndexing.instance.quantSelWhiteMaterial;
-        else
-            mesh.material = PrefabIndexing.instance.quantSelBlackMaterial;
+        MeshRenderer mesh = storageObjects[gridPoint.x, gridPoint.y].GetComponentInChildren<MeshRenderer>();
+        mesh.material = PrefabIndexing.instance.getCorrectSelectMaterial(GameManager.instance.currentPlayer.name, true);
     }
 
     public void deselectPieceAtGrid(Vector2Int gridPoint) {
-        int col = gridPoint.x, row = gridPoint.y;
-
-        MeshRenderer mesh = storageObjects[col, row].GetComponentInChildren<MeshRenderer>();
+        MeshRenderer mesh = storageObjects[gridPoint.x, gridPoint.y].GetComponentInChildren<MeshRenderer>();
         mesh.material = PrefabIndexing.instance.defaultMaterial;
     }
 }

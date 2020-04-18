@@ -8,9 +8,6 @@ public class PrefabIndexing : MonoBehaviour {
         instance = this;
     }
 
-    private static List<GameObject> idToPrefab;
-    private static List<GameObject> idToPrefabAlpha;
-
     [SerializeField] public Material defaultMaterial;
     [SerializeField] public Material simpleSelWhiteMaterial;
     [SerializeField] public Material simpleSelBlackMaterial;
@@ -19,7 +16,9 @@ public class PrefabIndexing : MonoBehaviour {
     [SerializeField] public Material enemyTile;
     [SerializeField] public Material allowedTile;
     [SerializeField] public Material selectTile;
-    [SerializeField] public Material unselectRoque;
+    [SerializeField] public Material allowCastleArrow;
+    [SerializeField] public Material denyCastleArrow;
+    [SerializeField] public Material defaultCastleArrow;
 
     [SerializeField] public GameObject prefSelectTile;
     [SerializeField] public GameObject prefAllowedTile;
@@ -39,18 +38,21 @@ public class PrefabIndexing : MonoBehaviour {
     [SerializeField] private GameObject prefBlackRook;      // 10
     [SerializeField] private GameObject prefBlackPawn;      // 11
 
-    [SerializeField] private GameObject prefWhiteKingAlpha;      // 0
+    [SerializeField] public GameObject prefWhiteKingAlpha;       // 0
     [SerializeField] private GameObject prefWhiteQueenAlpha;     // 1
     [SerializeField] private GameObject prefWhiteKnightAlpha;    // 2
     [SerializeField] private GameObject prefWhiteBishopAlpha;    // 3
-    [SerializeField] public GameObject prefWhiteRookAlpha;      // 4
+    [SerializeField] public GameObject prefWhiteRookAlpha;       // 4
     [SerializeField] private GameObject prefWhitePawnAlpha;      // 5
-    [SerializeField] private GameObject prefBlackKingAlpha;      // 6
+    [SerializeField] public GameObject prefBlackKingAlpha;       // 6
     [SerializeField] private GameObject prefBlackQueenAlpha;     // 7
     [SerializeField] private GameObject prefBlackKnightAlpha;    // 8
     [SerializeField] private GameObject prefBlackBishopAlpha;    // 9
-    [SerializeField] public GameObject prefBlackRookAlpha;      // 10
+    [SerializeField] public GameObject prefBlackRookAlpha;       // 10
     [SerializeField] private GameObject prefBlackPawnAlpha;      // 11
+
+    private static List<GameObject> idToPrefab;
+    private static List<GameObject> idToPrefabAlpha;
 
     private void  Awake() {
         idToPrefab = new List<GameObject>() {
@@ -60,6 +62,7 @@ public class PrefabIndexing : MonoBehaviour {
             prefWhiteKingAlpha, prefWhiteQueenAlpha, prefWhiteKnightAlpha, prefWhiteBishopAlpha, prefWhiteRookAlpha, prefWhitePawnAlpha,
             prefBlackKingAlpha, prefBlackQueenAlpha, prefBlackKnightAlpha, prefBlackBishopAlpha, prefBlackRookAlpha, prefBlackPawnAlpha };
     }
+
     public static readonly Piece[] pieceClasses = {
         new King(PieceType.King), new Queen(PieceType.Queen),
         new Knight(PieceType.Knight), new Bishop(PieceType.Bishop),
@@ -81,5 +84,25 @@ public class PrefabIndexing : MonoBehaviour {
     }
     public static GameObject getPrefabAlphaByID(int ID) {
         return idToPrefabAlpha[ID];
+    }
+
+    public Material getCorrectSelectMaterial(PlayerType player, bool isQuant) {
+        if (player == PlayerType.White) {
+            if (isQuant)
+                return quantSelWhiteMaterial;
+            else
+                return simpleSelWhiteMaterial;
+        } else {
+            if (isQuant)
+                return quantSelBlackMaterial;
+            else
+                return simpleSelBlackMaterial;
+        }
+    }
+    public GameObject getCorrectTile(Vector2Int gridPoint) {
+        if (GameManager.instance.getPieceIDAtGrid(gridPoint) == null)
+            return prefAllowedTile;
+        else
+            return prefEnemyTile;
     }
 }

@@ -1,10 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Selection : MonoBehaviour {
     protected GameObject selectTile;
-    static protected int k = 0;
 
     protected void showObjOnGrid(GameObject obj, Vector2Int gridPoint) {
         obj.transform.position = Geometry.PointFromGrid(gridPoint);

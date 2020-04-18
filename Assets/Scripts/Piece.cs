@@ -3,7 +3,7 @@ using UnityEngine;
 
 public enum PieceType {King, Queen, Bishop, Knight, Rook, Pawn};
 
-public abstract class Piece : Layer {
+public abstract class Piece {
     public abstract PieceType typeOfPiece { get; protected set; }
     public abstract List<Vector2Int> getMoveLocations(Layer layer, bool isWhite, Vector2Int gridPoint);
 

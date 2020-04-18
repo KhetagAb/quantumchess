@@ -5,9 +5,8 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour {
     public static GameManager instance;
 
-    [SerializeField] private ToRoque toRoque;
+    [SerializeField] public GameObject BoardObjectOnScene;
     [SerializeField] private StepAndBoardDisplay Display;
-    [SerializeField] private Canvas chessUI;
 
     public Player currentPlayer;
     public Player anotherPlayer;
@@ -68,9 +67,8 @@ public class GameManager : MonoBehaviour {
 
         quantumNormalize();
 
-        Display.EnterState();
+        Display.Activate();
     }
-
     private void InstallSetPiece(int ID, int col, int row) {
         layers[0].pieces[col, row] = ID;
     }
@@ -78,11 +76,9 @@ public class GameManager : MonoBehaviour {
     public List<Vector2Int> getAllowedGridsInStep(Vector2Int gridPoint, bool isQunt) {
         return getAllowedGridsInStep((int) getPieceIDAtGrid(gridPoint), gridPoint, isQunt);
     }
-
     public List<Vector2Int> getAllowedGridsInStep(int ID, Vector2Int gridPoint, bool isQunt) {
         return getMoveLocations(ID, gridPoint, isQunt);
     }
-
     public List<Vector2Int> getAllowedGridsInMidStep(Vector2Int startGridPoint, Vector2Int midGridPoint) {
         return getMoveLocations((int) getPieceIDAtGrid(startGridPoint), startGridPoint, midGridPoint);
     }
@@ -93,43 +89,57 @@ public class GameManager : MonoBehaviour {
         anotherPlayer = temp;
     }
 
-    // =========================[STEPS]========================= 
+    // ===================================================[STEPS] 
     public void simpleMove(Vector2Int startGridPoint, Vector2Int finishGridPoint) {
         int ID = (int) getPieceIDAtGrid(startGridPoint);
-        PieceType pieceType = (PieceType) getPieceTypeByID(ID);
 
-        for (int i = 0; i < layers.Count; i++) {
-            if (layers[i].isLayerLegalInStep(ID, startGridPoint, finishGridPoint, false)) {
-                layers[i].setFromTo(startGridPoint, finishGridPoint);
-                layers[i].updateRoqueStatus(pieceType, startGridPoint, finishGridPoint);
+        foreach (Layer layer in layers) {
+            if (layer.isLayerLegalInStep(ID, startGridPoint, finishGridPoint, false)) {
+                layer.moveFromTo(startGridPoint, finishGridPoint);
             }
         }
 
-        resolveConflicts(finishGridPoint);
-        quantumNormalize();
+        AfterMove(finishGridPoint);
     }
-
     public void quantumMove(Vector2Int startGridPoint, Vector2Int midGridPoint, Vector2Int finishGridPoint) {
         int ID = (int) getPieceIDAtGrid(startGridPoint);
-        PieceType pieceType = (PieceType) getPieceTypeByID(ID);
 
         List<Layer> toAddLayers = new List<Layer>();
-        for (int i = 0; i < layers.Count; i++) {
-            if (layers[i].isLayerLegalInMid(ID, startGridPoint, midGridPoint, finishGridPoint)) {
-                toAddLayers.Add(new Layer(layers[i]));
-                layers[i].setFromTo(startGridPoint, finishGridPoint);
-                layers[i].updateRoqueStatus(pieceType, startGridPoint, finishGridPoint);
+        foreach (Layer layer in layers) {
+            if (layer.isLayerLegalInMid(ID, startGridPoint, midGridPoint, finishGridPoint)) {
+                toAddLayers.Add(new Layer(layer));
+                layer.moveFromTo(startGridPoint, finishGridPoint);
             } else {
-                layers[i].weight *= 2;
+                layer.weight *= 2;
             }
         }
 
         layers.AddRange(toAddLayers);
 
-        resolveConflicts(finishGridPoint);
+        AfterMove(finishGridPoint);
+    }
+    public void castle(int index) {
+        foreach (Layer layer in layers) {
+            if (layer.isCastleLegal(index)) {
+                layer.castleKing(index);
+            }
+        }
+
+        resolveConflicts(CastleArrow.kingAlphaToGrids[index]);
+
+        foreach (Layer layer in layers) {
+            if (layer.isCastleLegal(index)) {
+                layer.castleRook(index);
+            }
+        }
+
+        AfterMove(CastleArrow.rookAlphaToGrids[index]);
+    } 
+   
+    public void AfterMove(Vector2Int lastFinishGridPoint) {
+        resolveConflicts(lastFinishGridPoint);
         quantumNormalize();
     }
-
     private void resolveConflicts(Vector2Int gridPoint) {
         int col = gridPoint.x, row = gridPoint.y;
 
@@ -173,8 +183,8 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    // =========================[LAYERS]=========================
-    public List<Vector2Int> getMoveLocations(int ID, Vector2Int gridPoint, bool isQuant) {
+    // ===================================================[LAYERS]
+    private List<Vector2Int> getMoveLocations(int ID, Vector2Int gridPoint, bool isQuant) {
         List<Vector2Int> allowedGrids = new List<Vector2Int>();
 
         for (int i = 0; i < layers.Count; i++) {
@@ -185,8 +195,7 @@ public class GameManager : MonoBehaviour {
 
         return allowedGrids;
     }
-
-    public List<Vector2Int> getMoveLocations(int ID, Vector2Int startPoint, Vector2Int midPoint) {
+    private List<Vector2Int> getMoveLocations(int ID, Vector2Int startPoint, Vector2Int midPoint) {
         List<Vector2Int> allowedGrids = new List<Vector2Int>();
 
         for (int i = 0; i < layers.Count; i++) {
@@ -198,26 +207,26 @@ public class GameManager : MonoBehaviour {
         return allowedGrids;
     }
 
-    // =========================[QUANTUM]=========================
+    // ===================================================[QUANTUM]
     public int? getPieceIDAtGrid(int col, int row) {
         if (quantumState[col, row].x == -1)
             return null;
 
         return quantumState[col, row].x;
     }
+    public int? getPieceIDAtGrid(Vector2Int? gridPoint) {
+        if (gridPoint == null)
+            return null;
 
-    public int? getPieceIDAtGrid(Vector2Int gridPoint) {
-        return getPieceIDAtGrid(gridPoint.x, gridPoint.y);
+        return getPieceIDAtGrid(((Vector2Int) gridPoint).x, ((Vector2Int) gridPoint).y);
     }
-
     public PieceType? getPieceTypeByGrid(Vector2Int grid) {
         if (getPieceIDAtGrid(grid) == null)
             return null;
 
         return getPieceTypeByID((int) getPieceIDAtGrid(grid));
     }
-
-    public void quantumNormalize() {
+    private void quantumNormalize() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 int? ID = null;
@@ -238,20 +247,18 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    // =========================[STEP]=========================
+    // ===================================================[STEP]
     public void selectSimplePieceAtGrid(Vector2Int gridPoint) {
         Display.selectSimplePieceAtGrid(gridPoint);
     }
-
     public void selectQuantumPieceAtGrid(Vector2Int gridPoint) {
         Display.selectQuantumPieceAtGrid(gridPoint);
     }
-
     public void deselectPieceAtGrid(Vector2Int gridPoint) {
         Display.deselectPieceAtGrid(gridPoint);
     }
 
-    // =========================[FUNCTIONAL]=========================
+    // ===================================================[FUNCTIONAL]
     public PieceType? getPieceTypeByID(int ID) {
         return PrefabIndexing.getPieceTypeByID(ID);
     }
