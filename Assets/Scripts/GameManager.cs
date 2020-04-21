@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour {
         InstallSetPiece(2, 6, 0);
         InstallSetPiece(4, 7, 0);
         for (int i = 0; i < 8; i++)
-            InstallSetPiece(5, i, 1);
+            InstallSetPiece(5, i, 3);
 
         InstallSetPiece(10, 0, 7);
         InstallSetPiece(8, 1, 7);
@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour {
         InstallSetPiece(8, 6, 7);
         InstallSetPiece(10, 7, 7);
         for (int i = 0; i < 8; i++)
-            InstallSetPiece(11, i, 6);
+            InstallSetPiece(11, i, 4);
 
         quantumNormalize();
 
@@ -92,6 +92,8 @@ public class GameManager : MonoBehaviour {
     // ===================================================[STEPS] 
     public void simpleMove(Vector2Int startGridPoint, Vector2Int finishGridPoint) {
         int ID = (int) getPieceIDAtGrid(startGridPoint);
+
+        Debug.Log(layers.Count);
 
         foreach (Layer layer in layers) {
             if (layer.isLayerLegalInStep(ID, startGridPoint, finishGridPoint, false)) {
