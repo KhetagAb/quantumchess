@@ -367,9 +367,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 1.6875}
-  m_SizeDelta: {x: 0, y: -9.875}
-  m_Pivot: {x: 0.4999999, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &538480656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -395,7 +395,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 1
     m_MaxSize: 40
-    m_Alignment: 1
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -473,7 +473,7 @@ MonoBehaviour:
   m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -888,17 +888,17 @@ MonoBehaviour:
   simpleBlackSel: {fileID: 2100000, guid: 399df30274685344c972bb61e8eb26a2, type: 2}
   quantumWhiteSel: {fileID: 2100000, guid: cfd0f31295441d8488a7096eb3dc9514, type: 2}
   quantumBlackSel: {fileID: 2100000, guid: 2140f2bdd2453504b95f00077be1983e, type: 2}
-  selectTile: {fileID: 1333511979136996, guid: e860aff6f484c47d7b713cbebd3ee5d3, type: 3}
-  allowedTile: {fileID: 1555274435638532, guid: 4cb3dfa64c6fa4774b49468d68a0845b,
-    type: 3}
-  enemyTile: {fileID: 1341371675672656, guid: c4a2ba9f320f1459996f001bc0387b40, type: 3}
-  midTile: {fileID: 7737726767296040726, guid: bfdfd68e6c1ded94ca4a2bd9aaebb847, type: 3}
+  tile: {fileID: 100000, guid: 96fcd2fbdcbbec84c8b15399778765f3, type: 3}
+  selectTile: {fileID: 2100000, guid: e552e83a86b7e7c43acaae4fd0320e09, type: 2}
+  clearTile: {fileID: 2100000, guid: 2253498aa8fac6a49b52ccd2d6a60ac9, type: 2}
+  pieceTile: {fileID: 2100000, guid: 93d6bd84a841d6b42ad433d8cc94392f, type: 2}
+  alphaTile: {fileID: 2100000, guid: 2615ff71f47a4dc408fd536ac475680e, type: 2}
   allowCastle: {fileID: 2100000, guid: ce4640dbb162131449f4c464c5bd6464, type: 2}
   denyCastle: {fileID: 2100000, guid: 6a5545603c765dd46b7dc0b49567a2ba, type: 2}
   defaultCastle: {fileID: 2100000, guid: 2a5c01d192970294695083bf6910933f, type: 2}
   prefKing: {fileID: 5290677692843827027, guid: 2e0c6a994ef91ce44b01a381dfcde55d,
     type: 3}
-  prefQueen: {fileID: 3393544567794408597, guid: be222508a51589243b94fdb9c35fd692,
+  prefQueen: {fileID: 8805863645638509824, guid: c8117422aa55f6646a03834fd734b759,
     type: 3}
   prefKnight: {fileID: 6510146701626269061, guid: 71015600a8649704a9f03d99b443f02b,
     type: 3}
@@ -943,7 +943,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 21, y: 18.3125}
-  m_SizeDelta: {x: 260, y: 29.375}
+  m_SizeDelta: {x: 260, y: 30}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &945349653
 MonoBehaviour:
@@ -1577,19 +1577,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1570364757
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6606469216138396669}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7db95ec920c72354b8b0cd2073fd6951, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  index: 2
 --- !u!4 &2046231769 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4018207101271513194, guid: c021df4c048f06c498a0bfdefb74dec6,
@@ -3232,7 +3219,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6606469216138436573}
-  - component: {fileID: 1570364757}
   m_Layer: 9
   m_Name: CastleBL
   m_TagString: Untagged

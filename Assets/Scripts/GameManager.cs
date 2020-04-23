@@ -200,13 +200,12 @@ public class GameManager : MonoBehaviour {
 
         return getPieceAtGrid(((Vector2Int) gridPoint).x, ((Vector2Int) gridPoint).y);
     }
-    public PieceType? getPieceTypeByGrid(Vector2Int grid) {
-        Piece piece = getPieceAtGrid(grid);
-
+    public PieceType? getPieceTypeAtGrid(Vector2Int? gridPoint) {
+        Piece piece = getPieceAtGrid(gridPoint);
         if (piece == null)
             return null;
-
-        return piece.typeOfPiece;
+        else
+            return piece.typeOfPiece;
     }
     private void quantumNormalize() {
         for (int i = 0; i < 8; i++) {
@@ -224,16 +223,5 @@ public class GameManager : MonoBehaviour {
                 quantumState[i, j] = new KeyValuePair<Piece, int>(piece, count);
             }
         }
-    }
-
-    // ===================================================[DISPLAY]
-    public void selectSimplePieceAtGrid(Vector2Int gridPoint) {
-        display.selectSimplePieceAtGrid(gridPoint);
-    }
-    public void selectQuantumPieceAtGrid(Vector2Int gridPoint) {
-        display.selectQuantumPieceAtGrid(gridPoint);
-    }
-    public void deselectPieceAtGrid(Vector2Int gridPoint) {
-        display.deselectPieceAtGrid(gridPoint);
     }
 }

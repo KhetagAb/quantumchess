@@ -1,14 +1,29 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-public class CastleArrow : CastleAlphaPiece, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler {
-    [SerializeField] private int index;
-    private bool isDeny;
+public class CastleArrow : MonoBehaviour {
+    [SerializeField] protected int index;
+    public static bool[] isDeny = new bool[4] { true, true, true, true };
+
+    private void Start() {
+        hideCastle();
+    }
+
+    public void setDenyStatus(bool status) {
+        isDeny[index] = status;
+
+        MeshRenderer mesh = GetComponentInChildren<MeshRenderer>();
+        if (!isDeny[index])
+            mesh.material = Prefabs.instance.defaultCastle;
+        else
+            mesh.material = Prefabs.instance.denyCastle;
+    }
 
     // Хранилище префабов по ID'шникам
-    public static GameObject[] prefabKingAlpha; // whiteShort, whiteLong, blackShort, blackLong
-    public static GameObject[] prefabRookAlpha; // whiteShort, whiteLong, blackShort, blackLong
+    protected static Piece[] piecesKingAlpha = new Piece[4]; // whiteShort, whiteLong, blackShort, blackLong
+    protected static Piece[] piecesRookAlpha = new Piece[4]; // whiteShort, whiteLong, blackShort, blackLong
 
     // Массивы координат установки
     public static List<Vector2Int> kingAlphaToGrids = new List<Vector2Int>() {
@@ -17,65 +32,26 @@ public class CastleArrow : CastleAlphaPiece, IPointerClickHandler, IPointerEnter
         new Vector2Int(5, 0), new Vector2Int(3, 0), new Vector2Int(5, 7), new Vector2Int(3, 7) };
 
     private void Awake() {
-        prefabKingAlpha = new GameObject[] {
-            new King(PlayerColor.White).getPrefab(), new King(PlayerColor.White).getPrefab(),
-            new King(PlayerColor.Black).getPrefab(), new King(PlayerColor.Black).getPrefab() };
-        prefabRookAlpha = new GameObject[] {
-           new Rook(PlayerColor.White).getPrefab(), new Rook(PlayerColor.White).getPrefab(),
-           new Rook(PlayerColor.Black).getPrefab(), new Rook(PlayerColor.Black).getPrefab()};
-    }
-
-    private void Start() {
-        kingAlphaGrid = kingAlphaToGrids[index];
-        rookAlphaGrid = rookAlphaToGrids[index];
-
-        GameObject tempprefab = prefabKingAlpha[index];
-        kingAlpha = Instantiate(tempprefab, Geometry.PointFromGrid(kingAlphaGrid), tempprefab.transform.rotation, GameManager.instance.BoardObjectOnScene.transform);
-        tempprefab = prefabRookAlpha[index];
-        rookAlpha = Instantiate(tempprefab, Geometry.PointFromGrid(rookAlphaGrid), tempprefab.transform.rotation, GameManager.instance.BoardObjectOnScene.transform);
-
-        hideCastle();
-    }
-
-    public void setDenyStatus(bool status) {
-        isDeny = status;
-
-        MeshRenderer mesh = GetComponentInChildren<MeshRenderer>();
-        if (!isDeny)
-            mesh.material = Prefabs.instance.defaultCastle;
-        else
-            mesh.material = Prefabs.instance.denyCastle;
+        piecesKingAlpha[index] = new King(index <= 1 ? PlayerColor.White : PlayerColor.Black);
+        piecesRookAlpha[index] = new Rook(index <= 1 ? PlayerColor.White : PlayerColor.Black);
     }
 
     public void showCastle() {
         gameObject.SetActive(true);
     }
-
     public void hideCastle() {
         hideAlphaAndTile();
         gameObject.SetActive(false);
     }
 
-    public void OnPointerClick(PointerEventData eventData) {
-        if (!isDeny) {
-            Castling.instance.Castle(index);
-        }
+    protected void showAlphaAndTile() {
+        Display.instance.addPieceAtGrid(piecesKingAlpha[index], kingAlphaToGrids[index], true, false);
+        Display.instance.addPieceAtGrid(piecesRookAlpha[index], rookAlphaToGrids[index], true, false);
+        Display.instance.setPermTileAtGrid(kingAlphaToGrids[index]);
     }
-
-    public void OnPointerEnter(PointerEventData eventData) {
-        if (!isDeny) {
-            MeshRenderer mesh = GetComponentInChildren<MeshRenderer>();
-            mesh.material = Prefabs.instance.allowCastle;
-
-            showAlphaAndTile();
-        }
-    }
-    public void OnPointerExit(PointerEventData eventData) {
-        if (!isDeny) {
-            MeshRenderer mesh = GetComponentInChildren<MeshRenderer>();
-            mesh.material = Prefabs.instance.defaultCastle;
-
-            hideAlphaAndTile();
-        }
+    protected void hideAlphaAndTile() {
+        Display.instance.delPermTileAtGrid(kingAlphaToGrids[index]);
+        Display.instance.delNotPermPieceAtGrid(kingAlphaToGrids[index]);
+        Display.instance.delNotPermPieceAtGrid(rookAlphaToGrids[index]);
     }
 }

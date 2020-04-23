@@ -9,18 +9,9 @@ public abstract class Piece {
     public abstract List<Vector2Int> getMoveLocations(Layer layer, Vector2Int gridPoint);
     protected abstract GameObject getClearPrefab();
 
-    public GameObject getAlphaPrefab() {
+    public GameObject getPrefab(bool isAlpha) {
         GameObject temp = getClearPrefab();
-        Material toSet = getAlphaMaterial();
-
-        foreach (MeshRenderer mesh in temp.GetComponentsInChildren<MeshRenderer>())
-            mesh.material = toSet;
-
-        return temp;
-    }
-    public GameObject getPrefab() {
-        GameObject temp = getClearPrefab();
-        Material toSet = getDefaultMaterial();
+        Material toSet = isAlpha ? Prefabs.instance.getAlpha(colorOfPiece) : Prefabs.instance.getDefault(colorOfPiece);
 
         foreach (MeshRenderer mesh in temp.GetComponentsInChildren<MeshRenderer>())
             mesh.material = toSet;
@@ -40,30 +31,5 @@ public abstract class Piece {
     public static void AddLocation(Vector2Int gridPoint, List<Vector2Int> locations) {
         if (!locations.Contains(gridPoint))
             locations.Add(gridPoint);
-    }
-
-    public Material getAlphaMaterial() {
-        if (colorOfPiece == PlayerColor.White)
-            return Prefabs.instance.defaultWhiteAlpha;
-        else
-            return Prefabs.instance.defaultBlackAlpha;
-    }
-    public Material getDefaultMaterial() {
-        if (colorOfPiece == PlayerColor.White)
-            return Prefabs.instance.defaultWhite;
-        else
-            return Prefabs.instance.defaultBlack;
-    }
-    public Material getSimpleSelection() {
-        if (colorOfPiece == PlayerColor.White)
-            return Prefabs.instance.simpleWhiteSel;
-        else
-            return Prefabs.instance.simpleBlackSel;
-    }
-    public Material getQuantumSelection() {
-        if (colorOfPiece == PlayerColor.White)
-            return Prefabs.instance.quantumWhiteSel;
-        else
-            return Prefabs.instance.quantumBlackSel;
     }
 }

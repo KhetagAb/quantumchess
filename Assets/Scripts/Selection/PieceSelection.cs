@@ -5,9 +5,6 @@ using UnityEngine;
 public class PieceSelection : Selection {
     private void Awake() {
         this.enabled = false;
-
-        selectTile = Instantiate(Prefabs.instance.selectTile);
-        hideObj(selectTile);
     }
 
     private void Update() {
@@ -17,29 +14,26 @@ public class PieceSelection : Selection {
         Ray rayToBoard = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(rayToBoard, out RaycastHit hitPlace) && isCorrectHit(hitPlace)) {
             Vector2Int gridPoint = getGridFromHit(hitPlace);
-            showObjOnGrid(selectTile, gridPoint);
+            Display.instance.setSelectorAtGrid(gridPoint);
 
             if (Input.GetMouseButtonDown(0)) {
                 if (isFriendlyPieceAtGrid(gridPoint))
                     Exit(gridPoint);
             }
         } else {
-            hideObj(selectTile);
+            Display.instance.setSelectorAtGrid(null);
         }
     }
 
     public void Activate() {
         this.enabled = true;
     }
-
     private void Disactivate() {
         this.enabled = false;
     }
 
     private void Exit(Vector2Int gridPoint) {
         Disactivate();
-
-        hideObj(selectTile);
 
         StepSimpleSelection step = GetComponent<StepSimpleSelection>();
         step.Activate(gridPoint);
