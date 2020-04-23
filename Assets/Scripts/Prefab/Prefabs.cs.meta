@@ -1,0 +1,36 @@
+fileFormatVersion: 2
+guid: 019afc33706cdfb44b3ed73900bb3eae
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - defaultWhite: {fileID: 2100000, guid: 6eb120f7ec56ef541b23b287a661ca1c, type: 2}
+  - defaultBlack: {fileID: 2100000, guid: 989aad7f1520e7346a0ed1b82be3a87c, type: 2}
+  - simpleWhiteSel: {fileID: 2100000, guid: e36d95f8616367946b44c46dbd4bb88a, type: 2}
+  - simpleBlackSel: {fileID: 2100000, guid: 399df30274685344c972bb61e8eb26a2, type: 2}
+  - quantumWhiteSel: {fileID: 2100000, guid: cfd0f31295441d8488a7096eb3dc9514, type: 2}
+  - quantumBlackSel: {fileID: 2100000, guid: 2140f2bdd2453504b95f00077be1983e, type: 2}
+  - selectTile: {fileID: 2100000, guid: e552e83a86b7e7c43acaae4fd0320e09, type: 2}
+  - allowedTile: {fileID: 2100000, guid: 2253498aa8fac6a49b52ccd2d6a60ac9, type: 2}
+  - enemyTile: {fileID: 2100000, guid: 93d6bd84a841d6b42ad433d8cc94392f, type: 2}
+  - midTile: {fileID: 2100000, guid: 2615ff71f47a4dc408fd536ac475680e, type: 2}
+  - allowCastle: {fileID: 2100000, guid: ce4640dbb162131449f4c464c5bd6464, type: 2}
+  - denyCastle: {fileID: 2100000, guid: 6a5545603c765dd46b7dc0b49567a2ba, type: 2}
+  - defaultCastle: {fileID: 2100000, guid: 2a5c01d192970294695083bf6910933f, type: 2}
+  - prefKing: {fileID: 5290677692843827027, guid: 2e0c6a994ef91ce44b01a381dfcde55d,
+      type: 3}
+  - prefQueen: {fileID: 3393544567794408597, guid: be222508a51589243b94fdb9c35fd692,
+      type: 3}
+  - prefKnight: {fileID: 6510146701626269061, guid: 71015600a8649704a9f03d99b443f02b,
+      type: 3}
+  - prefBishop: {fileID: 3895175771938268577, guid: a90921fb2cc55b640ad4d145d7d55e8b,
+      type: 3}
+  - prefRook: {fileID: 41659573771812839, guid: a0de285dccdce9043ade5d9f890b4e87,
+      type: 3}
+  - prefPawn: {fileID: 5688891851720824182, guid: a71a2b54d8d56f54f8a41c34d0cf3af7,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

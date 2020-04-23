@@ -18,11 +18,11 @@ public class CastleArrow : CastleAlphaPiece, IPointerClickHandler, IPointerEnter
 
     private void Awake() {
         prefabKingAlpha = new GameObject[] {
-            PrefabIndexing.instance.prefWhiteKingAlpha, PrefabIndexing.instance.prefWhiteKingAlpha,
-            PrefabIndexing.instance.prefBlackKingAlpha, PrefabIndexing.instance.prefBlackKingAlpha };
+            new King(PlayerColor.White).getPrefab(), new King(PlayerColor.White).getPrefab(),
+            new King(PlayerColor.Black).getPrefab(), new King(PlayerColor.Black).getPrefab() };
         prefabRookAlpha = new GameObject[] {
-            PrefabIndexing.instance.prefWhiteRookAlpha, PrefabIndexing.instance.prefWhiteRookAlpha,
-            PrefabIndexing.instance.prefBlackRookAlpha, PrefabIndexing.instance.prefBlackRookAlpha };
+           new Rook(PlayerColor.White).getPrefab(), new Rook(PlayerColor.White).getPrefab(),
+           new Rook(PlayerColor.Black).getPrefab(), new Rook(PlayerColor.Black).getPrefab()};
     }
 
     private void Start() {
@@ -42,9 +42,9 @@ public class CastleArrow : CastleAlphaPiece, IPointerClickHandler, IPointerEnter
 
         MeshRenderer mesh = GetComponentInChildren<MeshRenderer>();
         if (!isDeny)
-            mesh.material = PrefabIndexing.instance.defaultCastleArrow;
+            mesh.material = Prefabs.instance.defaultCastle;
         else
-            mesh.material = PrefabIndexing.instance.denyCastleArrow;
+            mesh.material = Prefabs.instance.denyCastle;
     }
 
     public void showCastle() {
@@ -65,7 +65,7 @@ public class CastleArrow : CastleAlphaPiece, IPointerClickHandler, IPointerEnter
     public void OnPointerEnter(PointerEventData eventData) {
         if (!isDeny) {
             MeshRenderer mesh = GetComponentInChildren<MeshRenderer>();
-            mesh.material = PrefabIndexing.instance.allowCastleArrow;
+            mesh.material = Prefabs.instance.allowCastle;
 
             showAlphaAndTile();
         }
@@ -73,7 +73,7 @@ public class CastleArrow : CastleAlphaPiece, IPointerClickHandler, IPointerEnter
     public void OnPointerExit(PointerEventData eventData) {
         if (!isDeny) {
             MeshRenderer mesh = GetComponentInChildren<MeshRenderer>();
-            mesh.material = PrefabIndexing.instance.defaultCastleArrow;
+            mesh.material = Prefabs.instance.defaultCastle;
 
             hideAlphaAndTile();
         }

@@ -21,13 +21,9 @@ namespace UnityTemplateProjects {
 
             public void Translate(Vector3 translation) {
                 Vector3 rotatedTranslation = Quaternion.Euler(pitch, yaw, roll) * translation;
-
-                if (x + rotatedTranslation.x > -8 && rotatedTranslation.x + x < 8)
-                    x += rotatedTranslation.x;
-                if (z + rotatedTranslation.z > -8 && rotatedTranslation.z + z < 8)
-                    z += rotatedTranslation.z;
-                if (y + rotatedTranslation.y > 1 && rotatedTranslation.y + y < 8)
-                    y += rotatedTranslation.y;
+                x += rotatedTranslation.x;
+                z += rotatedTranslation.z;
+                y += rotatedTranslation.y;
             }
 
             public void LerpTowards(CameraState target, float positionLerpPct, float rotationLerpPct) {

@@ -3,12 +3,18 @@ using UnityEngine;
 
 public class Queen : Piece {
     public override PieceType typeOfPiece { get; protected set; }
+    public override PlayerColor colorOfPiece { get; protected set; }
 
-    public Queen(PieceType typeOfPiece) {
-        this.typeOfPiece = typeOfPiece;
+    protected override GameObject getClearPrefab() {
+        return Prefabs.instance.prefQueen;
     }
 
-    public override List<Vector2Int> getMoveLocations(Layer layer, bool isWhite, Vector2Int gridPoint) {
+    public Queen(PlayerColor color) {
+        typeOfPiece = PieceType.Queen;
+        colorOfPiece = color;
+    }
+
+    public override List<Vector2Int> getMoveLocations(Layer layer, Vector2Int gridPoint) {
         List<Vector2Int> locations = new List<Vector2Int>();
         List<Vector2Int> directions = new List<Vector2Int>(RookDirections);
         directions.AddRange(BishopDirections);

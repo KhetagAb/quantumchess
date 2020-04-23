@@ -3,12 +3,18 @@ using UnityEngine;
 
 public class Bishop : Piece {
     public override PieceType typeOfPiece { get; protected set; }
+    public override PlayerColor colorOfPiece { get; protected set; }
 
-    public Bishop(PieceType typeOfPiece) {
-        this.typeOfPiece = typeOfPiece;
+    protected override GameObject getClearPrefab() {
+        return Prefabs.instance.prefBishop;
     }
 
-    public override List<Vector2Int> getMoveLocations(Layer layer, bool isWhite, Vector2Int gridPoint) {
+    public Bishop(PlayerColor color) {
+        typeOfPiece = PieceType.Bishop;
+        colorOfPiece = color;
+    }
+
+    public override List<Vector2Int> getMoveLocations(Layer layer, Vector2Int gridPoint) {
         List<Vector2Int> locations = new List<Vector2Int>();
 
         foreach (Vector2Int direction in BishopDirections) {

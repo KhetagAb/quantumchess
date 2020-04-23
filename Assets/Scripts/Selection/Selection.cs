@@ -19,14 +19,14 @@ public class Selection : MonoBehaviour {
         return Geometry.GridFromPoint(hitplace.point);
     }
 
-    protected int? getPieceIDAtGrid(Vector2Int gridPoint) {
-        return GameManager.instance.getPieceIDAtGrid(gridPoint);
+    protected Piece getPieceAtGrid(Vector2Int gridPoint) {
+        return GameManager.instance.getPieceAtGrid(gridPoint);
     }
     protected bool isFriendlyPieceAtGrid(Vector2Int gridPoint) {
-        int? id = getPieceIDAtGrid(gridPoint);
-        if (id == null)
+        Piece piece = getPieceAtGrid(gridPoint);
+        if (piece == null)
             return false;
 
-        return GameManager.instance.currentPlayer.playersPieces.Contains((int) id);
+        return GameManager.instance.curPlayer.color == piece.colorOfPiece;
     }
 }

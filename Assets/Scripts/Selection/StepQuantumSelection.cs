@@ -10,9 +10,9 @@ public class StepQuantumSelection : StepSelection {
     private void Awake() {
         this.enabled = false;
 
-        selectTile = Instantiate(PrefabIndexing.instance.prefSelectTile);
+        selectTile = Instantiate(Prefabs.instance.selectTile);
         hideObj(selectTile);
-        midTile = Instantiate(PrefabIndexing.instance.prefMidTile);
+        midTile = Instantiate(Prefabs.instance.midTile);
         hideObj(midTile);
     }
 
@@ -60,7 +60,6 @@ public class StepQuantumSelection : StepSelection {
         // Не очень нравится
         setActiveTileInGrid((Vector2Int) midGridPoint, false);
     }
-
     private void deselectMidTile() {
         midGridPoint = null;
 
@@ -75,12 +74,11 @@ public class StepQuantumSelection : StepSelection {
         ActiveSelection(gridPoint, true);
 
         midGridPoint = null;
-        alphaMidPiece = Instantiate(PrefabIndexing.getPrefabAlphaByID((int) getPieceIDAtGrid(gridPoint)));
+        alphaMidPiece = Instantiate(GameManager.instance.getPieceAtGrid(gridPoint).getAlphaPrefab());
         hideObj(alphaMidPiece);
 
         GameManager.instance.selectQuantumPieceAtGrid(startGridPoint);
     }
-
     public void Disactivate() {
         if (!this.enabled)
             return;
@@ -97,10 +95,9 @@ public class StepQuantumSelection : StepSelection {
 
         GameManager.instance.quantumMove(startGridPoint, (Vector2Int) midGridPoint, gridPoint);
 
-        StepAndBoardDisplay goTo = GetComponent<StepAndBoardDisplay>();
+        Display goTo = GetComponent<Display>();
         goTo.Activate(startGridPoint, gridPoint, true);
     }
-
     private void Cancel() {
         Disactivate();
 

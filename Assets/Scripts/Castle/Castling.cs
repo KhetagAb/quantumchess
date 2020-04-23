@@ -18,7 +18,7 @@ public class Castling : MonoBehaviour {
 
         GameManager.instance.castle(index);
 
-        StepAndBoardDisplay goTo = GetComponent<StepAndBoardDisplay>();
+        Display goTo = GetComponent<Display>();
         goTo.Activate();
     }
 
@@ -28,7 +28,7 @@ public class Castling : MonoBehaviour {
         bool[] isCastlePieceUntoch = new bool[] { false, false, false, false };
         bool[] isAnyLegal = new bool[] { false, false, false, false };
 
-        int castlePlayer = (GameManager.instance.currentPlayer.name == PlayerType.White ? 0 : 2);
+        int castlePlayer = (GameManager.instance.curPlayer.color == PlayerColor.White ? 0 : 2);
         for (int i = 0; i < GameManager.layers.Count; i++) {
             for (int j = castlePlayer; j - castlePlayer < 2; j++) {
                 isCastlePieceUntoch[j] = isCastlePieceUntoch[j] || GameManager.layers[i].isCastlePiecesUntoch[j];

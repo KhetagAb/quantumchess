@@ -76,7 +76,7 @@ public class CastleInLayer {
         bool isFreeBetween = isCastlePiecesUntoch[index];
 
         foreach (Vector2Int grid in betweenCastling[index]) {
-            isFreeBetween = isFreeBetween && (childLayer.getPieceIDAtGrid(grid) == null);
+            isFreeBetween = isFreeBetween && (childLayer.getPieceAtGrid(grid) == null);
         }
 
         return isFreeBetween;

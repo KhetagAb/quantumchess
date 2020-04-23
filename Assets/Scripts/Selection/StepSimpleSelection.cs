@@ -5,7 +5,7 @@ public class StepSimpleSelection : StepSelection {
     private void Awake() {
         this.enabled = false;
 
-        selectTile = Instantiate(PrefabIndexing.instance.prefSelectTile);
+        selectTile = Instantiate(Prefabs.instance.selectTile);
         hideObj(selectTile);
     }
 
@@ -44,7 +44,6 @@ public class StepSimpleSelection : StepSelection {
 
         GameManager.instance.selectSimplePieceAtGrid(startGridPoint);
     }
-
     public void Disactivate() {
         if (!this.enabled)
             return;
@@ -61,16 +60,14 @@ public class StepSimpleSelection : StepSelection {
         StepQuantumSelection goTo = GetComponent<StepQuantumSelection>();
         goTo.Activate(startGridPoint);
     }
-
     private void ExitToStep(Vector2Int gridPoint) {
         Disactivate();
 
         GameManager.instance.simpleMove(startGridPoint, gridPoint);
 
-        StepAndBoardDisplay goTo = GetComponent<StepAndBoardDisplay>();
+        Display goTo = GetComponent<Display>();
         goTo.Activate(startGridPoint, gridPoint, false);
     }
-
     private void Cancel() {
         Disactivate();
 

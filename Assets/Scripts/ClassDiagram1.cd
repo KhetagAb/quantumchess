@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="GameManager">
-    <Position X="2.25" Y="0.5" Width="1.5" />
+    <Position X="2.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAIACCAAACCAIAACAAAUAQEAECjAQAKECAACBACAJEA=</HashCode>
+      <HashCode>AAIACCAAACAAIAACAACUAQEAECnAQAAEgAACBACANEA=</HashCode>
       <FileName>Assets\Scripts\GameManager.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -11,142 +11,112 @@
     <Position X="6.25" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAgAAAAABAAAAAAAAAAAAAAAAAIAAAAAAAAEA=</HashCode>
-      <FileName>Assets\Scripts\PieceSelection.cs</FileName>
+      <FileName>Assets\Scripts\Selection\PieceSelection.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="StepSimpleSelection">
     <Position X="8.25" Y="6.25" Width="1.5" />
-    <InheritanceLine Type="StepSelection" FixedToPoint="true">
-      <Path>
-        <Point X="9" Y="4.3" />
-        <Point X="9" Y="5.875" />
-        <Point X="8.812" Y="5.875" />
-        <Point X="8.812" Y="6.25" />
-      </Path>
-    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAQAAAAAwAAAAABAAEEAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
-      <FileName>Assets\Scripts\StepSimpleSelection.cs</FileName>
+      <FileName>Assets\Scripts\Selection\StepSimpleSelection.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Piece">
     <Position X="18" Y="2.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAIAAAAAAAAAAAAAAAAAAAQAFAAAAAAAAAABAAAEAAA=</HashCode>
-      <FileName>Assets\Scripts\Piece.cs</FileName>
+      <HashCode>ACIAAAAAAQAAAAAQAAQgAAQAFBBAAAAAAgABAAAEAAA=</HashCode>
+      <FileName>Assets\Scripts\Pieces\Piece.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Bishop">
     <Position X="20" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAQAEAAAAAAAAgAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\Pieces\Bishop.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="King">
     <Position X="16.25" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAQAEAAAAAAAAgAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\Pieces\King.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Knight">
     <Position X="20" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAQAEAAAAAAAAgAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\Pieces\Knight.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Pawn">
     <Position X="18" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAQAEAAAAAAAAgAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\Pieces\Pawn.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Queen">
     <Position X="16" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAQAEAAAAAAAAgAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\Pieces\Queen.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Rook">
     <Position X="18" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAQAEAAAAAAAAgAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\Pieces\Rook.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Geometry">
-    <Position X="22.25" Y="4" Width="1.5" />
+    <Position X="22.25" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAEIAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Assets\Scripts\Geometry.cs</FileName>
+      <HashCode>AAAAQIAAAAAAAAAAIAAAAAAAAAAACAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Functional\Geometry.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Layer">
     <Position X="10.5" Y="8.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAEAAAAAAAAQAAAAAABIBAAAJCIgIEEEAAAAAAA=</HashCode>
+      <HashCode>AAACAAEAAAAAAAAQAACAAABIBAAAJCAgIEEEAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\Layer.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="StepQuantumSelection">
     <Position X="6.25" Y="6.25" Width="1.5" />
-    <InheritanceLine Type="StepSelection" FixedToPoint="true">
-      <Path>
-        <Point X="9" Y="4.3" />
-        <Point X="9" Y="5.875" />
-        <Point X="7" Y="5.875" />
-        <Point X="7" Y="6.25" />
-      </Path>
-    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAQEAAAAwAAAAABABAEAAAAEgAAAAAAAAAAAAAAAAEA=</HashCode>
-      <FileName>Assets\Scripts\StepQuantumSelection.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="StepAndBoardDisplay">
-    <Position X="2.25" Y="7.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAACAQAggAAoAFAAAAAAAAAAAAAQBAAAAAAAAIAIEA=</HashCode>
-      <FileName>Assets\Scripts\StepAndBoardDisplay.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="PrefabIndexing">
-    <Position X="4" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AQmAaFBAJwCAIiAGwE8EGAABQADAEZAAAAAQUAAkgMI=</HashCode>
-      <FileName>Assets\Scripts\PrefabIndexing.cs</FileName>
+      <FileName>Assets\Scripts\Selection\StepQuantumSelection.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Player">
-    <Position X="22.25" Y="5.75" Width="1.5" />
+    <Position X="22.25" Y="4.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAEAAAAAAAAAAAAAAAAAAAAAAEAAAAAAIAAAAAAAA=</HashCode>
-      <FileName>Assets\Scripts\Player.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAIAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Functional\Player.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Selection">
     <Position X="6.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ABEAAAAAACAAAAAAAIAAAAAAAAAAEAIAAAEAAAAAAAA=</HashCode>
-      <FileName>Assets\Scripts\Selection.cs</FileName>
+      <HashCode>ABEAAAAAACAAAAAAAICAAAAAAAAAEAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Selection\Selection.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="StepSelection">
     <Position X="8.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AIAACAAAAACAAAQEAAgAgCAAAAABAgAAAIAAAACIAAA=</HashCode>
-      <FileName>Assets\Scripts\StepSelection.cs</FileName>
+      <HashCode>AIAACACAAACAAAQEAAgEgCAAAAABAgAAAIAAAACIAAA=</HashCode>
+      <FileName>Assets\Scripts\Selection\StepSelection.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CastleArrow">
     <Position X="12.25" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAACAAAAiAAAAAAiAAAIAAAAAAgAAAAAAAEAQABQMA=</HashCode>
-      <FileName>Assets\Scripts\CastleArrow.cs</FileName>
+      <FileName>Assets\Scripts\Castle\CastleArrow.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="1.3" />
   </Class>
@@ -154,35 +124,49 @@
     <Position X="12.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ACAACABABAAAAAAAAEAAAAAAAQAAAAAAAAAAEAAAAAA=</HashCode>
-      <FileName>Assets\Scripts\CastleAlphaPiece.cs</FileName>
+      <FileName>Assets\Scripts\Castle\CastleAlphaPiece.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Castling">
     <Position X="14" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAgAAAAABAAAAAAAAAAARAAAAEAAAAAAAAAEA=</HashCode>
-      <FileName>Assets\Scripts\Castling.cs</FileName>
+      <FileName>Assets\Scripts\Castle\Castling.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CastleInLayer">
     <Position X="10.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAgAAAAEAQARAkgAAIAAAAIAAAAAAAAAAAAAAAIBAA=</HashCode>
-      <FileName>Assets\Scripts\CastleInLayer.cs</FileName>
+      <FileName>Assets\Scripts\Castle\CastleInLayer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Display">
+    <Position X="4.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAQAggAAIABAAAAAAAAAAAAAQAAAIAAAAAIAIEA=</HashCode>
+      <FileName>Assets\Scripts\Display.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Prefabs">
+    <Position X="0.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>hAAEACBIABACAAAEAAgEAiAAEABAEAIgggIAACAAEAg=</HashCode>
+      <FileName>Assets\Scripts\Prefab\Prefabs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PieceAtGrid">
+    <Position X="4.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIBAAAAAAAAgAAAAAQAAoAAAAAAAAIAA=</HashCode>
+      <FileName>Assets\Scripts\Prefab\PieceAtGrid.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Enum Name="PieceType">
-    <Position X="22.25" Y="2" Width="1.5" />
+    <Position X="22.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>gAAAAAAAAAEggAAAAEAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Assets\Scripts\Piece.cs</FileName>
-    </TypeIdentifier>
-  </Enum>
-  <Enum Name="PlayerType">
-    <Position X="22.25" Y="0.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Assets\Scripts\Player.cs</FileName>
+      <FileName>Assets\Scripts\Pieces\Piece.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Segoe UI" Size="9" />

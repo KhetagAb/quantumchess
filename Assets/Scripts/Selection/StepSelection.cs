@@ -17,7 +17,7 @@ public class StepSelection : Selection {
 
             setActiveTileInGrid(curGridPoint, false, midGridPoint);
 
-            if (getPieceIDAtGrid(curGridPoint) == null)
+            if (getPieceAtGrid(curGridPoint) == null)
                 showObjOnGrid(alphaPiece, curGridPoint);
         } else {
             showAllTiles(midGridPoint);
@@ -28,7 +28,11 @@ public class StepSelection : Selection {
         List<GameObject> allowedGridsObjects = new List<GameObject>();
 
         foreach (Vector2Int curGrid in allowedGrids) {
-            GameObject tempPrefab = PrefabIndexing.instance.getCorrectTile(curGrid);
+            GameObject tempPrefab;
+            if (GameManager.instance.getPieceAtGrid(curGrid) == null)
+                tempPrefab = Prefabs.instance.allowedTile;
+            else
+                tempPrefab = Prefabs.instance.enemyTile;
             allowedGridsObjects.Add(Instantiate(tempPrefab, Geometry.PointFromGrid(curGrid), Quaternion.identity, gameObject.transform));
         }
 
@@ -55,7 +59,7 @@ public class StepSelection : Selection {
     protected void ActiveSelection(Vector2Int gridPoint, bool isQuant) {
         startGridPoint = gridPoint;
 
-        alphaPiece = Instantiate(PrefabIndexing.getPrefabAlphaByID((int) getPieceIDAtGrid(startGridPoint)));
+        alphaPiece = Instantiate(GameManager.instance.getPieceAtGrid(startGridPoint).getAlphaPrefab());
         hideObj(alphaPiece);
 
         showAllowedGrids(startGridPoint, null, isQuant);
@@ -91,11 +95,11 @@ public class StepSelection : Selection {
     }
 
     protected PieceType? getPieceTypeAtGrid(Vector2Int gridPoint) {
-        int? ID = GameManager.instance.getPieceIDAtGrid(gridPoint);
+        Piece piece = GameManager.instance.getPieceAtGrid(gridPoint);
 
-        if (ID == null)
+        if (piece == null)
             return null;
 
-        return GameManager.instance.getPieceTypeByID((int) ID);
+        return piece.typeOfPiece;
     }
 }

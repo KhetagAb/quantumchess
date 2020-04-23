@@ -3,12 +3,18 @@ using UnityEngine;
 
 public class Rook : Piece {
     public override PieceType typeOfPiece { get; protected set; }
+    public override PlayerColor colorOfPiece { get; protected set; }
 
-    public Rook(PieceType typeOfPiece) {
-        this.typeOfPiece = typeOfPiece;
+    protected override GameObject getClearPrefab() {
+        return Prefabs.instance.prefRook;
     }
 
-    public override List<Vector2Int> getMoveLocations(Layer layer, bool isWhite, Vector2Int gridPoint) {
+    public Rook(PlayerColor color) {
+        typeOfPiece = PieceType.Rook;
+        colorOfPiece = color;
+    }
+
+    public override List<Vector2Int> getMoveLocations(Layer layer, Vector2Int gridPoint) {
         List<Vector2Int> locations = new List<Vector2Int>();
 
         foreach (Vector2Int direction in RookDirections) {

@@ -6,7 +6,7 @@ public class PieceSelection : Selection {
     private void Awake() {
         this.enabled = false;
 
-        selectTile = Instantiate(PrefabIndexing.instance.prefSelectTile);
+        selectTile = Instantiate(Prefabs.instance.selectTile);
         hideObj(selectTile);
     }
 

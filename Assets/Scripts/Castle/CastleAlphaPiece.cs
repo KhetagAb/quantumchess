@@ -12,13 +12,17 @@ public class CastleAlphaPiece : MonoBehaviour {
     protected GameObject allowedTile;
 
     protected void showAlphaAndTile() {
-        GameObject tempPrefab = PrefabIndexing.instance.getCorrectTile(kingAlphaGrid);
+        GameObject tempPrefab;
+        if (GameManager.instance.getPieceAtGrid(kingAlphaGrid) == null)
+            tempPrefab = Prefabs.instance.allowedTile;
+        else
+            tempPrefab = Prefabs.instance.enemyTile;
         allowedTile = Instantiate(tempPrefab, Geometry.PointFromGrid(kingAlphaGrid), tempPrefab.transform.rotation, GameManager.instance.BoardObjectOnScene.transform);
 
-        if (GameManager.instance.getPieceIDAtGrid(kingAlphaGrid) == null)
+        if (GameManager.instance.getPieceAtGrid(kingAlphaGrid) == null)
             kingAlpha.SetActive(true);
 
-        if (GameManager.instance.getPieceIDAtGrid(rookAlphaGrid) == null)
+        if (GameManager.instance.getPieceAtGrid(rookAlphaGrid) == null)
             rookAlpha.SetActive(true);
     }
     protected void hideAlphaAndTile() {
