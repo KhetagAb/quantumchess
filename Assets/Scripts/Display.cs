@@ -3,6 +3,8 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 
 public class Display : MonoBehaviour {
+    [SerializeField] public Camera cameraDebug;
+
     public static Display instance;
 
     [SerializeField] private Text showCurrentPlayer;
@@ -40,7 +42,7 @@ public class Display : MonoBehaviour {
         }
 
         GameManager.instance.nextPlayer();
-        showCurrentPlayer.text = "Current player: " + GameManager.instance.curPlayer.color.ToString();
+        showCurrentPlayer.text = "current player: " + GameManager.instance.curPlayer.color.ToString().ToLower();
     }
 
     public void Activate() {
