@@ -8,14 +8,15 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: defaultCastleArrow
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _GLOSSINESS_FROM_BASE_ALPHA _SPECULAR_COLOR
+  m_Shader: {fileID: 4800000, guid: 0e9d5a909a1f7e84882a534d0d11e49f, type: 3}
+  m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
-  disabledShaderPasses: []
+  disabledShaderPasses:
+  - SHADOWCASTER
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -105,7 +106,7 @@ Material:
     - _CameraFarFadeDistance: 2
     - _CameraNearFadeDistance: 1
     - _Cull: 2
-    - _Cutoff: 0.5
+    - _Cutoff: 0
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _EmissionEnabled: 0
@@ -136,10 +137,10 @@ Material:
     - _SoftParticlesEnabled: 0
     - _SoftParticlesFarFadeDistance: 1
     - _SoftParticlesNearFadeDistance: 0
-    - _SpecSource: 0
+    - _SpecSource: 1
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _Surface: 0
+    - _Surface: 1
     - _TERRAIN_INSTANCED_PERPIXEL_NORMAL: 0
     - _UVSec: 0
     - _UseAoMap: 0

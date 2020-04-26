@@ -22,7 +22,17 @@ ModelImporter:
     4300000: Boarder
     4300002: Board
     4300004: Frame
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Darks
+    second: {fileID: 2100000, guid: b11201873fc54b84d950f4148fb11bf1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lights
+    second: {fileID: 2100000, guid: b4efbffb9d3e9554d8838d61051b6254, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
