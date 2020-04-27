@@ -45,12 +45,12 @@ public class CastleArrow : MonoBehaviour {
     }
 
     protected void showAlphaAndTile() {
-        Display.instance.addPieceAtGrid(piecesKingAlpha[index], kingAlphaToGrids[index], true, false);
-        Display.instance.addPieceAtGrid(piecesRookAlpha[index], rookAlphaToGrids[index], true, false);
-        Display.instance.setPermTileAtGrid(kingAlphaToGrids[index]);
+        Display.instance.addPieceAtGrid(piecesKingAlpha[index], kingAlphaToGrids[index], true, PieceTypeOnGrid.Temp);
+        Display.instance.addPieceAtGrid(piecesRookAlpha[index], rookAlphaToGrids[index], true, PieceTypeOnGrid.Temp);
+        Display.instance.setTileAtGrid(kingAlphaToGrids[index]);
     }
     protected void hideAlphaAndTile() {
-        Display.instance.delPermTileAtGrid(kingAlphaToGrids[index]);
+        Display.instance.delTileAtGrid(kingAlphaToGrids[index]);
         Display.instance.delNotPermPieceAtGrid(kingAlphaToGrids[index]);
         Display.instance.delNotPermPieceAtGrid(rookAlphaToGrids[index]);
     }

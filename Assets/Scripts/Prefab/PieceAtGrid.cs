@@ -3,69 +3,26 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum PieceTypeOnGrid {
+    Permanent,
+    UntilAct,
+    Temp
+}
+
 public class PieceAtGrid : MonoBehaviour {
-    private Piece piece;
-    private bool isAlpha;
     private GameObject pieceObj;
+    private GameObject tile;
 
-    private int? qd;
+    private Piece piece;
+    private bool isAlphaPiece;
+    private PieceTypeOnGrid type; // 0 - Permanent, 1 - ToNextStep, 2 - Temp
+
+    private bool isTileOn;
+    private Material[] tileMat = new Material[2]; // Select Tile, Permanent Tile
+
+    // =======================
     private GameObject qdObj;
-
-    private bool isPerm;
-    private GameObject permTile;
-    private GameObject selTile;
-
-    public void setPiece(Piece piece, bool isAlpha = false, bool isPerm = true) {
-        if (this.piece == piece)
-            return;
-
-        delPiece();
-
-        addPiece(piece, isAlpha, isPerm);
-    }
-    public void addPiece(Piece piece, bool isAlpha = false, bool isPerm = true) {
-        if (this.piece != null || piece == null)
-            return;
-
-        this.piece = piece;
-        this.isAlpha = isAlpha;
-        this.isPerm = isPerm;
-
-        createPiece();
-    }
-    private void createPiece() {
-        pieceObj = Instantiate(piece.getPrefab(isAlpha), transform);
-        if (piece.colorOfPiece == PlayerColor.Black && piece.typeOfPiece == PieceType.Knight)
-            pieceObj.transform.Rotate(Vector3.up, 180);
-
-        updatePermTile();
-    }
-    public void setPermPiece(Piece piece, bool isAlpha = false, bool isPerm = true) {
-        addPiece(piece, isAlpha, isPerm);
-        this.isPerm = true;
-    }
-    public void delPiece() {
-        Destroy(pieceObj);
-        piece = null;
-        pieceObj = null;
-        isAlpha = false;
-        isPerm = false;
-
-        updatePermTile();
-    }
-    public void delNotPermPiece() {
-        if (isPerm)
-            return;
-
-        delPiece();
-    }
-    public void delAlphaPiece() {
-        if (!isAlpha)
-            return;
-
-        delPiece();
-    }
-
+    private int? qd;
     public void setQD(int? qd) {
         if (this.qd == qd)
             return;
@@ -82,47 +39,121 @@ public class PieceAtGrid : MonoBehaviour {
             qdObj.GetComponent<TextMeshPro>().text = qd.ToString() + "%";
         }
     }
+    public void lookat(Vector3 to) {
+        if (qdObj != null)
+            qdObj.transform.LookAt(to);
+    }
+    // =======================
 
-    private void showPermTile() {
-        permTile.SetActive(true);
-    }
-    private void hidePermTile() {
-        permTile.SetActive(false);
-    }
-    public void setPermTile() {
-        if (permTile == null)
-            permTile = Instantiate(Prefabs.instance.tile, transform);
-        updatePermTile();
-    }
-    public void updatePermTile() {
-        if (permTile != null)
-            permTile.GetComponent<MeshRenderer>().material = Prefabs.instance.getTileForPiece(piece, isAlpha);
-    }
-    public void delPermTile() {
-        Destroy(permTile);
-        permTile = null;
+    private PieceAtGrid() {
+        isTileOn = false;
     }
 
-    public void setSelTile(Piece piece = null) {
-        if (permTile != null) {
-            hidePermTile();
-            if (piece != null && !isPerm) {
-                addPiece(piece, true, false);
+    public void changeTypeToUntilPiece() {
+        if (type == PieceTypeOnGrid.Permanent)
+            return;
+
+        type = PieceTypeOnGrid.UntilAct;
+    }
+
+    public void setPiece(Piece piece, bool isAlpha, PieceTypeOnGrid type) {
+        if (this.piece == piece)
+            return;
+
+        delPiece();
+
+        addPiece(piece, isAlpha, type);
+    }
+    public void addPiece(Piece piece, bool isAlpha, PieceTypeOnGrid type) {
+        if (this.piece != null || piece == null)
+            return;
+
+        this.piece = piece;
+        this.isAlphaPiece = isAlpha;
+        this.type = type;
+
+        createPiece();
+    }
+    private void createPiece() {
+        if (this.piece == null)
+            return;
+
+        pieceObj = Instantiate(piece.getPrefab(isAlphaPiece), transform);
+        if (piece.colorOfPiece == PlayerColor.Black && piece.typeOfPiece == PieceType.Knight)
+            pieceObj.transform.Rotate(Vector3.up, 180);
+
+        updateTile();
+    }
+    public void delNotPermPiece() {
+        if (type == PieceTypeOnGrid.Permanent)
+            return;
+
+        delPiece();
+    }
+    public void delPiece() {
+        if (pieceObj != null)
+            Destroy(pieceObj);
+        piece = null;
+        pieceObj = null;
+        isAlphaPiece = false;
+
+        updateTile();
+    }
+    
+    public void setTile() {
+        isTileOn = true;
+        updateTile();
+    }
+    public void delTile() {
+        isTileOn = false;
+        updateTile();
+    }
+
+    public void setSelector(Piece piece = null) {
+        if (isTileOn)
+            addPiece(piece, true, PieceTypeOnGrid.Temp);
+
+        tileMat[0] = Prefabs.instance.selectTile;
+
+        initTile();
+    }
+    public void delSelector() {
+        if (type == PieceTypeOnGrid.Temp)
+            delPiece();
+
+        tileMat[0] = null;
+
+        initTile();
+    }
+
+    private void updateTile() {
+        if (isTileOn)
+            tileMat[1] = Prefabs.instance.getTileForPiece(piece, isAlphaPiece);
+        else
+            tileMat[1] = null;
+
+        initTile();
+    }
+    private void initTile() {
+        Material temp = null;
+
+        for (int i = 0; i < tileMat.Length; i++) {
+            if (tileMat[i] != null) {
+                temp = tileMat[i];
+                break;
             }
         }
 
-        if (selTile == null)
-            selTile = Instantiate(Prefabs.instance.tile, transform);
+        if (temp != null) {
+            if (tile == null)
+                tile = Instantiate(Prefabs.instance.tile, transform);
 
-        selTile.GetComponent<MeshRenderer>().material = Prefabs.instance.selectTile;
-    }
-    public void delSelTile() {
-        Destroy(selTile);
-        selTile = null;
-
-        if (permTile != null) {
-            showPermTile();
-            delNotPermPiece();
+            tile.GetComponent<MeshRenderer>().material = temp;
+        } else {
+            if (tile != null) {
+                Destroy(tile);
+                tile = null;
+            }
         }
     }
 

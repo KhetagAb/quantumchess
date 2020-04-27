@@ -3,28 +3,21 @@
   <Class Name="GameManager">
     <Position X="2.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAIACCAAACAAAAACAACEAQEAECnBQAAEgAACBACAFEA=</HashCode>
-      <FileName>Assets\Scripts\GameManager.cs</FileName>
+      <HashCode>AAIACAAAACAAAAAAAAAEAAAAAABAAAAAgAACAAAAFEA=</HashCode>
+      <FileName>Assets\Scripts\Main\GameManager.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="PieceSelection">
-    <Position X="6.25" Y="3.5" Width="1.5" />
+    <Position X="6" Y="2.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAgAAAAABAAAAAAAAAAAAAAAAAIAAAAAAAAEA=</HashCode>
       <FileName>Assets\Scripts\Selection\PieceSelection.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="StepSimpleSelection">
-    <Position X="8.25" Y="6.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAQAAAAAwAAAAABAAEEAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
-      <FileName>Assets\Scripts\Selection\StepSimpleSelection.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="Piece">
     <Position X="18" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ACIAAAAAAQAAAAAAAAAAAAQAFAAAAAAAAgABAAAEAAA=</HashCode>
+      <HashCode>ACIAAAAAAQAAABAAAAAAAAQAFAAAAAAAAgABAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\Pieces\Piece.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -80,15 +73,8 @@
   <Class Name="Layer">
     <Position X="10.5" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAEAAAAAAAAQAACAAABIBAAAJCAgIEEEAAAAAAA=</HashCode>
-      <FileName>Assets\Scripts\Layer.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="StepQuantumSelection">
-    <Position X="6.25" Y="6.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAQAAAAAwAAAAABABAEAAAAAgAAAAAAAAAAAAAAAAEA=</HashCode>
-      <FileName>Assets\Scripts\Selection\StepQuantumSelection.cs</FileName>
+      <HashCode>AAAAAAEAAAAAAAAAAACAAABABCAAJCAgIEEEAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Main\Layer.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Player">
@@ -96,20 +82,6 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAIAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\Functional\Player.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Selection">
-    <Position X="6.25" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>ABEAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
-      <FileName>Assets\Scripts\Selection\Selection.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="StepSelection">
-    <Position X="8.25" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AIAACAAAAACAAAAEAAgAAAAAAAAAAgAAAAAAAACAAAA=</HashCode>
-      <FileName>Assets\Scripts\Selection\StepSelection.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CastleUI">
@@ -123,7 +95,7 @@
   <Class Name="Castling">
     <Position X="14" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAgAAAAABAAAAAAAAAAARAAAAEAAAAAAAAAEA=</HashCode>
+      <HashCode>AAAAAAAAgAAAAABAAAAAAAAAAARAAAAEAAAABAAAAEA=</HashCode>
       <FileName>Assets\Scripts\Castle\Castling.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -137,8 +109,8 @@
   <Class Name="Display">
     <Position X="4.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAACATAgwQAIABIABAAAAgRAABBQCgAIEAAIAIAIEA=</HashCode>
-      <FileName>Assets\Scripts\Display.cs</FileName>
+      <HashCode>QEAEAASgAwQAIAABAAAAAAgBFABAQAAAIAIgAAAIYEA=</HashCode>
+      <FileName>Assets\Scripts\Main\Display.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Prefabs">
@@ -151,7 +123,7 @@
   <Class Name="PieceAtGrid">
     <Position X="24.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAIQIAAAAAAAMACAAAAAJABRARAAQCAgAgIAGAAQKII=</HashCode>
+      <HashCode>ACARAAggAACAIACAAAAAIBBBAAABQQAgIgQACAAQKAI=</HashCode>
       <FileName>Assets\Scripts\Prefab\PieceAtGrid.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -172,8 +144,36 @@
   <Class Name="ShowFPS" Collapsed="true">
     <Position X="22.25" Y="7.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABCAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAACBCAAQAAAAA=</HashCode>
       <FileName>Assets\Scripts\Functional\ShowFPS.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QSStepSelection" Collapsed="true">
+    <Position X="7.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAACAAAAACAAAAEAAgAAAAAAAAAAgAAAAAAAACAAAE=</HashCode>
+      <FileName>Assets\Scripts\Selection\QSStepSelection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuantumSelection" Collapsed="true">
+    <Position X="8.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAwAAAAABABAEAAAAAgAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Selection\QuantumSelection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimpleSelection" Collapsed="true">
+    <Position X="8.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAwAAAAABAAEEAAAAAAAABAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Selection\SimpleSelection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StepAndPieceSelection" Collapsed="true">
+    <Position X="6.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABEAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Selection\StepAndPieceSelection.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Enum Name="PieceType">
@@ -188,6 +188,13 @@
     <TypeIdentifier>
       <HashCode>AAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\Functional\Player.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="PieceTypeOnGrid" Collapsed="true">
+    <Position X="6.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAQAAAAAAgAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Prefab\PieceAtGrid.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Segoe UI" Size="9" />

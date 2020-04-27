@@ -1,13 +1,22 @@
-﻿using TMPro;
+﻿using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Experimental.UIElements;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+enum SceneIndex {
+    MainMenue = 0,
+    ChessBoard = 1
+}
+
 public class MainMenue : MonoBehaviour {
-    [SerializeField] UnityEngine.UI.Slider slider;
-    [SerializeField] TextMeshProUGUI text;
-    [SerializeField] float CameraSpeed;
+    [SerializeField] private Animation transition;
+
+    [SerializeField] private UnityEngine.UI.Slider slider;
+    [SerializeField] private TextMeshProUGUI text;
+
+    [SerializeField] private float CameraSpeed;
     private void FixedUpdate() {
         transform.Rotate(new Vector3(CameraSpeed * Time.deltaTime, CameraSpeed * Time.deltaTime, 0));
     }
@@ -17,8 +26,17 @@ public class MainMenue : MonoBehaviour {
     }
 
     public void playGame() {
-        GameManager.limitLayers = (int) slider.value;
-        SceneManager.LoadScene("ChessBoard");
+        Step.limitLayers = (int) slider.value;
+
+        StartCoroutine(LoadLevel((int) SceneIndex.ChessBoard));
+    }
+
+    IEnumerator LoadLevel(int sceneIndex) {
+        transition.Play();
+
+        yield return new WaitForSeconds(2f);
+
+        SceneManager.LoadScene(sceneIndex);
     }
 
     public void onRule() {

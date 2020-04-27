@@ -21,10 +21,10 @@ public class Pawn : Piece {
         int fowardDirecton = GameManager.instance.curPlayer.ZAxis;
 
         Vector2Int toFoward = new Vector2Int(gridPoint.x, gridPoint.y + fowardDirecton);
-        if (layer.isAllowedGrid(toFoward)) {
+        if (layer.isFreedGrid(toFoward)) {
             locations.Add(toFoward);
             toFoward.y += fowardDirecton;
-            if (layer.isAllowedGrid(toFoward)) {
+            if (layer.isFreedGrid(toFoward)) {
                 if (isWhite && gridPoint.y == 1)
                     locations.Add(toFoward);
                 else if (!isWhite && gridPoint.y == 6) 

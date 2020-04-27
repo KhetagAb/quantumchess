@@ -1,13 +1,27 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityTemplateProjects;
 
 public class ShowFPS : MonoBehaviour {
-
     public static float fps;
+    [SerializeField] private Vector3 targetTo;
 
-    private void Update() {
-        //GetComponentInParent<Transform>().transform.Rotate(Vector3.up, Time.deltaTime * 2);
+    private void Start() {
+        StartCoroutine(moveTo());
+    }
+
+    IEnumerator moveTo() {
+        while (SceneManager.GetActiveScene().buildIndex != (int) SceneIndex.ChessBoard) {
+            yield return null;
+        }
+
+        do {
+            transform.position = Vector3.Lerp(transform.position, targetTo, 0.1f);
+            yield return new WaitForFixedUpdate();
+        } while (transform.position != targetTo);
+
+        GetComponentInChildren<SimpleCameraController>().enabled = true;
     }
 
     void OnGUI() {

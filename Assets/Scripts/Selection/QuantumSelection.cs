@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class StepQuantumSelection : StepSelection {
+public class QuantumSelection : QSStepSelection {
+    [SerializeField] private GameObject WaringWindow;
+
     private Vector2Int? midGridPoint;
 
     private void Awake() {
@@ -15,7 +17,7 @@ public class StepQuantumSelection : StepSelection {
         Ray rayToBoard = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(rayToBoard, out RaycastHit hitPlace) && isCorrectHit(hitPlace)) {
             Vector2Int gridPoint = getGridFromHit(hitPlace);
-            Display.instance.setSelectorAtGrid(gridPoint, GameManager.instance.getPieceAtGrid(startGridPoint));
+            Display.instance.setSelector(gridPoint, startPiece);
 
             if (midGridPoint != null) {
                 if (Input.GetMouseButtonDown(0)) {
@@ -29,27 +31,29 @@ public class StepQuantumSelection : StepSelection {
                     if (allowedGrids.Contains(gridPoint))
                         selectMidTile(gridPoint);
                 } else if (Input.GetMouseButtonDown(2)) {
-                    Cancel(gridPoint);
+                    Cancel();
                 }
             }
         } else {
-            Display.instance.setSelectorAtGrid(null);
+            Display.instance.setSelector(null);
         }
     }
 
     private void selectMidTile(Vector2Int gridPoint) {
         midGridPoint = gridPoint;
-        Display.instance.setPermPieceAtGrid(GameManager.instance.getPieceAtGrid(startGridPoint), (Vector2Int) midGridPoint, true, true);
+        Display.instance.changeTypeToUntilPiece((Vector2Int) midGridPoint);
 
         hideAllowedGrids();
         showAllowedGrids(startGridPoint, midGridPoint, true);
     }
     private void deselectMidTile() {
-        Display.instance.delAlphaPieceAtGrid((Vector2Int) midGridPoint);
-        midGridPoint = null;
+        Display.instance.delAllNotPermPieces();
 
+        midGridPoint = null;
         hideAllowedGrids();
         showAllowedGrids(startGridPoint, midGridPoint, true);
+
+        Display.instance.setSelector(Display.instance.selector, startPiece, false);
     }
 
     public void Activate(Vector2Int gridPoint) {
@@ -59,27 +63,30 @@ public class StepQuantumSelection : StepSelection {
 
         Display.instance.selectQuantumPieceAtGrid(startGridPoint);
     }
-    private void Disactivate(Vector2Int? finishGridPoint = null) {
+    private void Disactivate() {
         if (!this.enabled)
             return;
 
-        DisactiveSelection(finishGridPoint);
+        DisactiveSelection();
     }
 
     private void ExitToStep(Vector2Int gridPoint) {
-        Disactivate(gridPoint);
+        if (!Step.instance.isQuantumMovePos(startGridPoint, (Vector2Int) midGridPoint, gridPoint)) {
+            this.enabled = false;
+            WaringWindow.SetActive(true);
+            return;
+        }
 
-        GameManager.instance.quantumMove(startGridPoint, (Vector2Int) midGridPoint, gridPoint);
+        Disactivate();
 
-        Display goTo = GetComponent<Display>();
-        goTo.Activate(startGridPoint, gridPoint, true);
+        Step.instance.QuantumMove(startGridPoint, (Vector2Int) midGridPoint, gridPoint);
     }
-    private void Cancel(Vector2Int gridPoint) {
-        Disactivate(gridPoint);
+    private void Cancel() {
+        Disactivate();
 
         Display.instance.selector = null;
 
-        StepSimpleSelection goTo = GetComponent<StepSimpleSelection>();
+        SimpleSelection goTo = GetComponent<SimpleSelection>();
         goTo.Activate(startGridPoint);
     }
 }

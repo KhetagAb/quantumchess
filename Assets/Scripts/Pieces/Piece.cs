@@ -19,6 +19,13 @@ public abstract class Piece {
         return temp;
     }
 
+    public bool isFriendlyPiece(Piece piece) {
+        if (piece == null)
+            return false;
+
+        return colorOfPiece == piece.colorOfPiece;
+    }
+
     protected static Vector2Int[] RookDirections = {new Vector2Int(0,1), new Vector2Int(1, 0),
         new Vector2Int(0, -1), new Vector2Int(-1, 0)};
     protected static Vector2Int[] BishopDirections = {new Vector2Int(1,1), new Vector2Int(1, -1),
@@ -28,8 +35,4 @@ public abstract class Piece {
         new Vector2Int(2, -1), new Vector2Int(-1, 2),
         new Vector2Int(-2, -1), new Vector2Int(-1, -2)};
 
-    public static void AddLocation(Vector2Int gridPoint, List<Vector2Int> locations) {
-        if (!locations.Contains(gridPoint))
-            locations.Add(gridPoint);
-    }
 }

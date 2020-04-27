@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Selection : MonoBehaviour {
+public class StepAndPieceSelection : MonoBehaviour {
     protected bool isCorrectHit(RaycastHit hitPlace) {
         Vector2Int grid = getGridFromHit(hitPlace);
         return (0 <= grid.x && grid.x <= 7 && 0 <= grid.y && grid.y <= 7);
@@ -9,7 +9,7 @@ public class Selection : MonoBehaviour {
         return Geometry.GridFromPoint(hitplace.point);
     }
     protected Piece getPieceAtGrid(Vector2Int gridPoint) {
-        return GameManager.instance.getPieceAtGrid(gridPoint);
+        return Step.instance.getPieceAtGrid(gridPoint);
     }
     protected bool isFriendlyPieceAtGrid(Vector2Int gridPoint) {
         Piece piece = getPieceAtGrid(gridPoint);

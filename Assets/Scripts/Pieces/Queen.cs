@@ -25,7 +25,7 @@ public class Queen : Piece {
             for (int i = 0; i < 8; i++) {
                 tempGridPoint += direction;
                 locations.Add(tempGridPoint);
-                if (!layer.isAllowedGrid(tempGridPoint))
+                if (!layer.isFreedGrid(tempGridPoint))
                     break;
             }
         }

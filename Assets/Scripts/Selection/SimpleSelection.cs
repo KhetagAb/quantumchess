@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class StepSimpleSelection : StepSelection {
+public class SimpleSelection : QSStepSelection {
     private void Awake() {
         this.enabled = false;
     }
@@ -13,23 +13,23 @@ public class StepSimpleSelection : StepSelection {
         Ray rayToBoard = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(rayToBoard, out RaycastHit hitPlace) && isCorrectHit(hitPlace)) {
             Vector2Int  gridPoint = getGridFromHit(hitPlace);
-            Display.instance.setSelectorAtGrid(gridPoint, GameManager.instance.getPieceAtGrid(startGridPoint));
+            Display.instance.setSelector(gridPoint, startPiece);
 
             if (Input.GetMouseButtonDown(0)) {
-                if (gridPoint == startGridPoint && GameManager.instance.getPieceTypeAtGrid(gridPoint) != PieceType.Pawn)
-                    ExitToQuantum(gridPoint);
+                if (gridPoint == startGridPoint && getPieceTypeAtGrid(gridPoint) != PieceType.Pawn)
+                    ExitToQuantum();
                 else if (allowedGrids.Contains(gridPoint))
                     ExitToStep(gridPoint);
             } else if (Input.GetMouseButtonDown(2)) {
-                Cancel(gridPoint);
+                Cancel();
             }
         } else {
-            Display.instance.setSelectorAtGrid(null);
+            Display.instance.setSelector(null);
         }
     }
 
     public void Activate(Vector2Int gridPoint) {
-        if (GameManager.instance.getPieceTypeAtGrid(gridPoint) == PieceType.King && (gridPoint == new Vector2Int(4, 0) || gridPoint == new Vector2Int(4, 7))) {
+        if (getPieceTypeAtGrid(gridPoint) == PieceType.King && (gridPoint == new Vector2Int(4, 0) || gridPoint == new Vector2Int(4, 7))) {
             Castling goTo = GetComponent<Castling>();
             goTo.Activate();
         }
@@ -38,32 +38,35 @@ public class StepSimpleSelection : StepSelection {
 
         Display.instance.selectSimplePieceAtGrid(startGridPoint);
     }
-    public void Disactivate(Vector2Int? finishGridPoint = null) {
+    public void Disactivate() {
         if (!this.enabled)
             return;
 
         Castling goTo = GetComponent<Castling>();
         goTo.Disactivate();
 
-        DisactiveSelection(finishGridPoint);
+        DisactiveSelection();
     }
 
-    private void ExitToQuantum(Vector2Int gridPoint) {
-        Disactivate(gridPoint);
+    protected PieceType getPieceTypeAtGrid(Vector2Int gridPoint) {
+        Piece piece = getPieceAtGrid(gridPoint);
 
-        StepQuantumSelection goTo = GetComponent<StepQuantumSelection>();
+        return piece.typeOfPiece;
+    }
+
+    private void ExitToQuantum() {
+        Disactivate();
+
+        QuantumSelection goTo = GetComponent<QuantumSelection>();
         goTo.Activate(startGridPoint);
     }
     private void ExitToStep(Vector2Int gridPoint) {
-        Disactivate(gridPoint);
+        Disactivate();
 
-        GameManager.instance.simpleMove(startGridPoint, gridPoint);
-
-        Display goTo = GetComponent<Display>();
-        goTo.Activate(startGridPoint, gridPoint, false);
+        Step.instance.SimpleMove(startGridPoint, gridPoint);
     }
-    private void Cancel(Vector2Int gridPoint) {
-        Disactivate(gridPoint);
+    private void Cancel() {
+        Disactivate();
 
         PieceSelection goTo = GetComponent<PieceSelection>();
         goTo.Activate();

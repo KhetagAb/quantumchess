@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PieceSelection : Selection {
+public class PieceSelection : StepAndPieceSelection {
     private void Awake() {
         this.enabled = false;
     }
@@ -14,14 +14,14 @@ public class PieceSelection : Selection {
         Ray rayToBoard = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(rayToBoard, out RaycastHit hitPlace) && isCorrectHit(hitPlace)) {
             Vector2Int gridPoint = getGridFromHit(hitPlace);
-            Display.instance.setSelectorAtGrid(gridPoint);
+            Display.instance.setSelector(gridPoint);
 
             if (Input.GetMouseButtonDown(0)) {
                 if (isFriendlyPieceAtGrid(gridPoint))
                     Exit(gridPoint);
             }
         } else {
-            Display.instance.setSelectorAtGrid(null);
+            Display.instance.setSelector(null);
         }
     }
 
@@ -35,7 +35,7 @@ public class PieceSelection : Selection {
     private void Exit(Vector2Int gridPoint) {
         Disactivate();
 
-        StepSimpleSelection step = GetComponent<StepSimpleSelection>();
+        SimpleSelection step = GetComponent<SimpleSelection>();
         step.Activate(gridPoint);
     }
 }

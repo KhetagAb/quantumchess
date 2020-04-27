@@ -62,7 +62,6 @@ public class CastleInLayer {
         betweenResolvingIsLegal = true;
         childLayer.setFromTo(kingMoves[index][0], kingMoves[index][1]);
     }
-
     public void castleRook(int index) {
         childLayer.setFromTo(rookMoves[index][0], rookMoves[index][1]);
     }
