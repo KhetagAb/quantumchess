@@ -6,9 +6,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
     public static GameManager instance;
-
-    [SerializeField] public GameObject BoardObjectOnScene;
-    [SerializeField] private Display display;
+    public static int limitLayers;
 
     private int k = 1;
     private Player white;
@@ -23,6 +21,8 @@ public class GameManager : MonoBehaviour {
     public static KeyValuePair<Piece, int>[,] quantumState;
 
     private void Awake() {
+        Debug.Log("Allowed " + limitLayers + " layers.");
+
         instance = this;
 
         quantumState = new KeyValuePair<Piece, int>[8, 8];
@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour {
 
         quantumNormalize();
 
-        display.Activate();
+        Display.instance.Activate();
     }
     private void InstallSetPiece(Piece piece, int col, int row) {
         layers[0].pieces[col, row] = piece;
