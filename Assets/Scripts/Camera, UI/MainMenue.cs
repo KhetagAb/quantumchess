@@ -13,7 +13,7 @@ public class MainMenue : MonoBehaviour {
     }
 
     public void editSlider() {
-        text.text = "Quantum rate: " + slider.value.ToString();
+        text.text = "Max. harmonics: 2<sup>" + slider.value.ToString() + "</sup>";
     }
 
     public void playGame() {
