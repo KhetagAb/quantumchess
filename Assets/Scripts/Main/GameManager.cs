@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -167,7 +168,7 @@ public class GameManager : MonoBehaviour {
             }
         }
 
-        if (sumOfLayersWeight > limitLayers) {
+        if (sumOfLayersWeight > (1 << limitLayers)) {
             WaringWindow.SetActive(true);
             return false;
         } else {
