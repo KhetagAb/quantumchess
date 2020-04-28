@@ -26,7 +26,7 @@ public class MainMenue : MonoBehaviour {
     }
 
     public void playGame() {
-        Step.limitLayers = (int) slider.value;
+        GameManager.limitLayers = (int) slider.value;
 
         StartCoroutine(LoadLevel((int) SceneIndex.ChessBoard));
     }

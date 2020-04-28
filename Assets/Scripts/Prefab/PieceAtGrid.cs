@@ -40,8 +40,10 @@ public class PieceAtGrid : MonoBehaviour {
         }
     }
     public void lookat(Vector3 to) {
-        if (qdObj != null)
+        if (qdObj != null) {
             qdObj.transform.LookAt(to);
+            qdObj.transform.Rotate(Vector3.up, 180);
+        }
     }
     // =======================
 

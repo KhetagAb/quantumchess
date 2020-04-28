@@ -28,7 +28,10 @@ public class PieceSelection : StepAndPieceSelection {
     public void Activate() {
         this.enabled = true;
     }
-    private void Disactivate() {
+    public void Disactivate() {
+        if (!this.enabled)
+            return;
+
         this.enabled = false;
     }
 

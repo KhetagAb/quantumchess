@@ -9,7 +9,7 @@ public class StepAndPieceSelection : MonoBehaviour {
         return Geometry.GridFromPoint(hitplace.point);
     }
     protected Piece getPieceAtGrid(Vector2Int gridPoint) {
-        return Step.instance.getPieceAtGrid(gridPoint);
+        return GameManager.instance.getPieceAtGrid(gridPoint);
     }
     protected bool isFriendlyPieceAtGrid(Vector2Int gridPoint) {
         Piece piece = getPieceAtGrid(gridPoint);

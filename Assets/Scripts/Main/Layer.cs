@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Layer : CastleInLayer {
@@ -24,6 +26,27 @@ public class Layer : CastleInLayer {
         }
 
         castleInstance();
+    }
+
+    public string getDate() {
+        string data = "";
+
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (pieces[i, j] == null)
+                    data = data + 'n';
+                else
+                    data = data + (char) ('a' + (int) pieces[i, j].typeOfPiece + (pieces[i, j].colorOfPiece == PlayerColor.Black ? 6 : 0));
+            }
+        }
+
+        for (int i = 0; i < 4; i++)
+            data = data + (char) ('a' + (isCastleAllow[i] ? 1 : 0));
+
+        return data;
+    }
+    public override int GetHashCode() {
+        return getDate().GetHashCode();
     }
 
     // ===================================================[FUNCTIONAL] 
@@ -52,15 +75,16 @@ public class Layer : CastleInLayer {
     }
 
     // ===================================================[MOVE] 
-    public void moveFromTo(Vector2Int startGridPoint, Vector2Int finishGrdiPoint) {
-        updateCastleUntochness(startGridPoint, finishGrdiPoint);
 
-        setFromTo(startGridPoint, finishGrdiPoint);
+    public void moveFromTo(Step step) {
+        updateCastleUntochness(step.from, step.to);
+
+        setFromTo(step);
     }
 
-    public void setFromTo(Vector2Int startGridPoint, Vector2Int finishGrdiPoint) {
-        int cols = startGridPoint.x, rows = startGridPoint.y;
-        int colf = finishGrdiPoint.x, rowf = finishGrdiPoint.y;
+    public void setFromTo(Step step) {
+        int cols = step.from.x, rows = step.from.y;
+        int colf = step.to.x, rowf = step.to.y;
         pieces[colf, rowf] = pieces[cols, rows];
         pieces[cols, rows] = null;
     }
@@ -92,11 +116,11 @@ public class Layer : CastleInLayer {
     }
 
     // ===================================================[LEGACY OF MOVE LOCATIONS] 
-    public bool isLayerLegalInStep(Piece piece, Vector2Int startGridPoint, Vector2Int finishGridPoint, bool isQuant) {
-        return getMoveLocationsInLayerInStep(piece, startGridPoint, isQuant).Contains(finishGridPoint);
+    public bool isLayerLegalInStep(Piece piece, Step step, bool isQuant) {
+        return getMoveLocationsInLayerInStep(piece, step.from, isQuant).Contains(step.to);
     }
-    public bool isLayerLegalInMid(Piece piece, Vector2Int startGridPoint, Vector2Int midGridPoint, Vector2Int finishGridPoint) {
-        List<Vector2Int> gridPoints = getMoveLocationsInLayerInMid(piece, startGridPoint, midGridPoint);
-        return gridPoints.Contains(midGridPoint) && gridPoints.Contains(finishGridPoint);
+    public bool isLayerLegalInMid(Piece piece, Step step) {
+        List<Vector2Int> gridPoints = getMoveLocationsInLayerInMid(piece, step.from, (Vector2Int) step.mid);
+        return gridPoints.Contains((Vector2Int) step.mid) && gridPoints.Contains(step.to);
     }
 }

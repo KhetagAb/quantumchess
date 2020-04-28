@@ -63,7 +63,7 @@ public class SimpleSelection : QSStepSelection {
     private void ExitToStep(Vector2Int gridPoint) {
         Disactivate();
 
-        Step.instance.SimpleMove(startGridPoint, gridPoint);
+        GameManager.instance.SimpleMove(new Step(startGridPoint, gridPoint));
     }
     private void Cancel() {
         Disactivate();

@@ -2,8 +2,6 @@
 using UnityEngine;
 
 public class QuantumSelection : QSStepSelection {
-    [SerializeField] private GameObject WaringWindow;
-
     private Vector2Int? midGridPoint;
 
     private void Awake() {
@@ -22,7 +20,7 @@ public class QuantumSelection : QSStepSelection {
             if (midGridPoint != null) {
                 if (Input.GetMouseButtonDown(0)) {
                     if (allowedGrids.Contains(gridPoint))
-                        ExitToStep(gridPoint);
+                        TryStep(gridPoint);
                 } else if (Input.GetMouseButtonDown(2)) {
                     deselectMidTile();
                 }
@@ -63,23 +61,24 @@ public class QuantumSelection : QSStepSelection {
 
         Display.instance.selectQuantumPieceAtGrid(startGridPoint);
     }
-    private void Disactivate() {
+    public void Disactivate() {
         if (!this.enabled)
             return;
 
         DisactiveSelection();
     }
 
-    private void ExitToStep(Vector2Int gridPoint) {
-        if (!Step.instance.isQuantumMovePos(startGridPoint, (Vector2Int) midGridPoint, gridPoint)) {
+    private void TryStep(Vector2Int gridPoint) {
+        if (GameManager.instance.isQuantumMovePos(new Step(startGridPoint, midGridPoint, gridPoint)))
+            ExitToStep(gridPoint);
+        else
             this.enabled = false;
-            WaringWindow.SetActive(true);
-            return;
-        }
+    }
 
+    private void ExitToStep(Vector2Int gridPoint) {
         Disactivate();
 
-        Step.instance.QuantumMove(startGridPoint, (Vector2Int) midGridPoint, gridPoint);
+        GameManager.instance.QuantumMove(new Step(startGridPoint, midGridPoint, gridPoint));
     }
     private void Cancel() {
         Disactivate();

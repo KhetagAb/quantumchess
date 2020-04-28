@@ -12,8 +12,6 @@ public class Display : MonoBehaviour {
     private void Awake() {
         instance = this;
 
-        this.enabled = false;
-
         board = new PieceAtGrid[8, 8];
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -59,7 +57,7 @@ public class Display : MonoBehaviour {
         if (quantums == null)
             return null;
 
-        int sum = Step.instance.sumOfLayersWeight();
+        int sum = GameManager.instance.sumOfLayersWeight();
         if (quantums[col, row] == 0)
             return null;
         else

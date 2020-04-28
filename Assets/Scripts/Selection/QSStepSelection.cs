@@ -10,9 +10,9 @@ public class QSStepSelection : StepAndPieceSelection {
 
     protected List<Vector2Int> getAllowedGrids(Vector2Int startGridPoint, Vector2Int? midGridPoint, bool isQuant) {
         if (midGridPoint == null)
-            return Step.instance.getMoveLocations(startGridPoint, isQuant);
+            return GameManager.instance.getMoveLocations(startGridPoint, isQuant);
         else
-            return Step.instance.getMoveLocations(startGridPoint, (Vector2Int) midGridPoint);
+            return GameManager.instance.getMoveLocations(startGridPoint, (Vector2Int) midGridPoint);
     }
 
     protected void showAllowedGrids(Vector2Int startGridPoint, Vector2Int? midGridPoint, bool isQuant) {
@@ -26,7 +26,7 @@ public class QSStepSelection : StepAndPieceSelection {
 
     protected void ActiveSelection(Vector2Int gridPoint, bool isQuant) {
         startGridPoint = gridPoint;
-        startPiece = Step.instance.getPieceAtGrid(startGridPoint);
+        startPiece = GameManager.instance.getPieceAtGrid(startGridPoint);
 
         showAllowedGrids(startGridPoint, null, isQuant);
 

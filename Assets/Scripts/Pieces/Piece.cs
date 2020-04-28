@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public enum PieceType {King, Queen, Bishop, Knight, Rook, Pawn};
+public enum PieceType {King = 0, Queen = 1, Bishop = 2, Knight = 3, Rook = 4, Pawn = 5};
 
 public abstract class Piece {
     public abstract PieceType typeOfPiece { get; protected set; }
