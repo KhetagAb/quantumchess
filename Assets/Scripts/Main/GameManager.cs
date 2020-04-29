@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
@@ -10,9 +10,13 @@ public class GameManager : MonoBehaviour {
 
     //debug
     [SerializeField] private TextMeshProUGUI debugText;
+    [SerializeField] private TextMeshProUGUI gameOverText;
     [SerializeField] private TextMeshProUGUI currentHarmonicText;
+    [SerializeField] private GameObject gameOverWindow;
     [SerializeField] private GameObject WaringWindow;
     [SerializeField] private GameObject PromotationWindow;
+    [SerializeField] private GameObject showHarmonicsButton;
+    [SerializeField] private GameObject currentPlayerLabel;
     [SerializeField] private Text showCurrentPlayer;
 
     [SerializeField] private PieceSelection PS;
@@ -55,15 +59,15 @@ public class GameManager : MonoBehaviour {
         layers.Add(new Layer());
 
         InstallSetPiece(new Rook(PlayerColor.White), 0, 0);
-        InstallSetPiece(new Knight(PlayerColor.White), 1, 1);
-        InstallSetPiece(new Bishop(PlayerColor.White), 2, 1);
-        InstallSetPiece(new Queen(PlayerColor.White), 3, 1);
+        InstallSetPiece(new Knight(PlayerColor.White), 1, 0);
+        InstallSetPiece(new Bishop(PlayerColor.White), 2, 0);
+        InstallSetPiece(new Queen(PlayerColor.White), 3, 0);
         InstallSetPiece(new King(PlayerColor.White), 4, 0);
-        InstallSetPiece(new Bishop(PlayerColor.White), 5, 1);
-        InstallSetPiece(new Knight(PlayerColor.White), 6, 1);
+        InstallSetPiece(new Bishop(PlayerColor.White), 5, 0);
+        InstallSetPiece(new Knight(PlayerColor.White), 6, 0);
         InstallSetPiece(new Rook(PlayerColor.White), 7, 0);
         for (int i = 0; i < 8; i++)
-            InstallSetPiece(new Pawn(PlayerColor.White), i, 2);
+            InstallSetPiece(new Pawn(PlayerColor.White), i, 1);
 
         InstallSetPiece(new Rook(PlayerColor.Black), 0, 7);
         InstallSetPiece(new Knight(PlayerColor.Black), 1, 7);
@@ -83,8 +87,53 @@ public class GameManager : MonoBehaviour {
         layers[0].pieces[col, row] = piece;
     }
 
+    public void loadMainMenue() {
+        gameOverText.text = "Loading...";
+
+        SceneManager.LoadScene((int) SceneIndex.MainMenue);
+    }
+
+    public bool checkGameOver() {
+        bool whiteKing = false;
+        bool blackKing = false;
+
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (quantumStatePiece[i, j] != null && quantumStatePiece[i, j].typeOfPiece == PieceType.King) {
+                    if (quantumStatePiece[i, j].colorOfPiece == PlayerColor.White)
+                        whiteKing = true;
+
+                    if (quantumStatePiece[i, j].colorOfPiece == PlayerColor.Black)
+                        blackKing = true;
+                }
+            }
+        }
+
+        if (whiteKing && blackKing) {
+            return false;
+        } else {
+            if (whiteKing) {
+                gameOverText.text = "VICTORY!\n White player wins!";
+            } else if (blackKing) {
+                gameOverText.text = "VICTORY!\n Black player wins!";
+            } else {
+                gameOverText.text = "DRAW!";
+            }
+            gameOverWindow.SetActive(true);
+            return true;
+        }
+    }
+
     public void nextStep(Piece[,] board, int[,] quantums) {
         Display.instance.ToNextStep(board, quantums);
+
+        if (checkGameOver()) {
+            currentPlayerLabel.SetActive(false);
+            showHarmonicsButton.SetActive(false);
+            Destroy(SS);
+            Destroy(QS);
+            Destroy(PS);
+        }
 
         k ^= 1;
         showCurrentPlayer.text = "current player: " + curPlayer.color.ToString().ToLower();
@@ -165,11 +214,8 @@ public class GameManager : MonoBehaviour {
 
         int sumOfLayersWeight = 0;
         foreach (Layer layer in layers) {
-            if (layer.isLayerLegalInMid(piece, step)) {
-                sumOfLayersWeight++;
-            } else {
+            if (layer.isLayerLegalInMid(piece, step))
                 sumOfLayersWeight += 2;
-            }
         }
 
         if (sumOfLayersWeight > (1 << limitLayers)) {
@@ -343,7 +389,6 @@ public class GameManager : MonoBehaviour {
 
         int weight = layers[0].weight;
         for (int i = 1; i < layers.Count; i++) {
-            Debug.Log(layers[i].rang == layers[i - 1].rang);
             if (layers[i].rang == layers[i - 1].rang) {
                 weight += layers[i].weight;
             } else {
