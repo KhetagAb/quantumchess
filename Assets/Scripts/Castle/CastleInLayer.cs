@@ -3,19 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CastleInLayer {
-    protected Layer childLayer;
-    public bool[] isCastleAllow; // [0]whiteShort, [1]whiteLong, [2]blackShort, [3]blackLong; 
+    public Piece[,] pieces;
+    public string rang;
 
-    private bool betweenResolvingIsLegal;
+    public bool[] isCastleAllow = new bool[] { true, true, true, true }; // [0]whiteShort, [1]whiteLong, [2]blackShort, [3]blackLong; 
+    private bool betweenResolvingIsLegal = false;
 
-    protected CastleInLayer() {
-        isCastleAllow = new bool[] { true, true, true, true };
-        betweenResolvingIsLegal = false;
-    }
+    protected CastleInLayer() { }
     protected CastleInLayer(CastleInLayer layer) {
-        isCastleAllow = new bool[4];
-        betweenResolvingIsLegal = false;
-
         for (int i = 0; i < isCastleAllow.Length; i++)
             isCastleAllow[i] = layer.isCastleAllow[i];
     }
@@ -32,41 +27,82 @@ public class CastleInLayer {
         new List<Vector2Int>() { new Vector2Int(5, 7), new Vector2Int(6, 7) },                          // [2]
         new List<Vector2Int>() { new Vector2Int(1, 7), new Vector2Int(2, 7), new Vector2Int(3, 7) }};   // [3]
     private static List<Step> rookMoves = new List<Step> {
-        new Step(rookPlaces[0], betweenCastling[0][0]),                                                  // [0]
-        new Step(rookPlaces[1], betweenCastling[1][2]),                                // [1]
-        new Step(rookPlaces[2], betweenCastling[2][0]),                                // [2]
-        new Step(rookPlaces[3], betweenCastling[3][2])                                 // [3]
+        new Step(rookPlaces[0], betweenCastling[0][0]),                                 // [0]
+        new Step(rookPlaces[1], betweenCastling[1][2]),                                 // [1]
+        new Step(rookPlaces[2], betweenCastling[2][0]),                                 // [2]
+        new Step(rookPlaces[3], betweenCastling[3][2])                                  // [3]
     };
     private static List<Step> kingMoves = new List<Step> {
-        new Step(kingPlaces[0], betweenCastling[0][1]),                              // [0]
-        new Step(kingPlaces[0], betweenCastling[1][1]),                                // [1]
-        new Step(kingPlaces[1], betweenCastling[2][1]),                                // [2]
-        new Step(kingPlaces[1], betweenCastling[3][1])                                 // [3]
+        new Step(kingPlaces[0], betweenCastling[0][1]),                                 // [0]
+        new Step(kingPlaces[0], betweenCastling[1][1]),                                 // [1]
+        new Step(kingPlaces[1], betweenCastling[2][1]),                                 // [2]
+        new Step(kingPlaces[1], betweenCastling[3][1])                                  // [3]
     };
 
-    // ===================================================[CASTLE] 
-    protected void updateCastleUntochness(Vector2Int startGrid, Vector2Int finishGrid) {
-        int findedRook = rookPlaces.FindIndex(grid => grid == startGrid || grid == finishGrid);
-        int findedKing = kingPlaces.FindIndex(grid => grid == startGrid || grid == finishGrid);
+    public void calRang() {
+        rang = "";
 
-        if (findedRook != -1)
-            isCastleAllow[findedRook] = false;
-
-        if (findedKing != -1) {
-            isCastleAllow[2 * findedKing] = false;
-            isCastleAllow[2 * findedKing + 1] = false;
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (pieces[i, j] == null)
+                    rang = rang + 'n';
+                else
+                    rang = rang + (char) ('a' + (int) pieces[i, j].typeOfPiece + (pieces[i, j].colorOfPiece == PlayerColor.Black ? 6 : 0));
+            }
         }
+
+        for (int i = 0; i < 4; i++)
+            rang = rang + (char) ('a' + (isCastleAllow[i] ? 1 : 0));
     }
 
+    // ===================================================[FUNCTIONAL] 
+    public static bool isCorrectGrid(Vector2Int gridPoint) {
+        int col = gridPoint.x, row = gridPoint.y;
+        return (0 <= col && col <= 7 && 0 <= row && row <= 7);
+    }
+
+    //  ===================================================[LAYER] 
+    public Piece getPieceAtGrid(Vector2Int gridPoint) {
+        if (!isCorrectGrid(gridPoint))
+            return null;
+
+        return pieces[gridPoint.x, gridPoint.y];
+    }
+    public PieceType? getPieceTypeAtGrid(Vector2Int gridPoint) {
+        Piece piece = getPieceAtGrid(gridPoint);
+        if (piece == null)
+            return null;
+
+        return piece.typeOfPiece;
+    }
+    protected void setFromTo(Step step) {
+        int cols = step.from.x, rows = step.from.y;
+        int colf = step.to.x, rowf = step.to.y;
+        pieces[colf, rowf] = pieces[cols, rows];
+        pieces[cols, rows] = null;
+    }
+
+    // ===================================================[CASTLE] 
     public void castleKing(int index) {
         betweenResolvingIsLegal = true;
-        childLayer.setFromTo(kingMoves[index]);
+        setFromTo(kingMoves[index]);
     }
     public void castleRook(int index) {
-        childLayer.setFromTo(rookMoves[index]);
+        setFromTo(rookMoves[index]);
+        normalizeCastleInLayer();
     }
+    protected void normalizeCastleInLayer() {
+        for (int i = 0; i < 4; i++) {
+            if (getPieceTypeAtGrid(rookMoves[i].from) != PieceType.Rook)
+                isCastleAllow[i] = false;
+        }
 
-
+        for (int i = 0; i < 4; i += 2) {
+            if (getPieceTypeAtGrid(kingMoves[i].from) != PieceType.King)
+                isCastleAllow[i] = isCastleAllow[i + 1] = false;
+        }
+        calRang();
+    }
     public bool isCastleLegal(int index) {
         if (betweenResolvingIsLegal) {
             betweenResolvingIsLegal = false;
@@ -74,9 +110,8 @@ public class CastleInLayer {
         }
 
         bool isFreeBetween = isCastleAllow[index];
-
         foreach (Vector2Int grid in betweenCastling[index]) {
-            isFreeBetween = isFreeBetween && (childLayer.getPieceAtGrid(grid) == null);
+            isFreeBetween = isFreeBetween && (getPieceAtGrid(grid) == null);
         }
 
         return isFreeBetween;

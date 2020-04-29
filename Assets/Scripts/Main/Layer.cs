@@ -5,18 +5,12 @@ using UnityEngine;
 
 public class Layer : CastleInLayer {
     public int weight;
-    public Piece[,] pieces;
-    public string rang;
-
-    private void castleInstance() {
-        childLayer = this;
-    }
 
     public Layer() {
         weight = 1;
         pieces = new Piece[8, 8];
 
-        castleInstance();
+        calRang();
     }
     public Layer(Layer layer) : base(layer) {
         weight = layer.weight;
@@ -26,36 +20,10 @@ public class Layer : CastleInLayer {
                 pieces[i, j] = layer.pieces[i, j];
         }
 
-        castleInstance();
-    }
-
-    public string getDate() {
-        string rang = "";
-
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                if (pieces[i, j] == null)
-                    rang = rang + 'n';
-                else
-                    rang = rang + (char) ('a' + (int) pieces[i, j].typeOfPiece + (pieces[i, j].colorOfPiece == PlayerColor.Black ? 6 : 0));
-            }
-        }
-
-        for (int i = 0; i < 4; i++)
-            rang = rang + (char) ('a' + (isCastleAllow[i] ? 1 : 0));
-
-        return rang;
-    }
-    public override int GetHashCode() {
-        return getDate().GetHashCode();
+        calRang();
     }
 
     // ===================================================[FUNCTIONAL] 
-    public static bool isCorrectGrid(Vector2Int gridPoint) {
-        int col = gridPoint.x, row = gridPoint.y;
-        return (0 <= col && col <= 7 && 0 <= row && row <= 7);
-    }
-
     public bool isFreedGrid(Vector2Int gridPoint) {
         if (!isCorrectGrid(gridPoint))
             return false;
@@ -64,30 +32,16 @@ public class Layer : CastleInLayer {
     }
 
     // ===================================================[LAYER] 
-    public Piece getPieceAtGrid(Vector2Int gridPoint) {
-        if (!isCorrectGrid(gridPoint))
-            return null;
-
-        return pieces[gridPoint.x, gridPoint.y];
-    }
     public bool isFriendlyPieceAtGrid(Piece piece, Vector2Int gridPoint) {
         Piece anotherPiece = getPieceAtGrid(gridPoint);
         return piece.isFriendlyPiece(anotherPiece);
     }
 
     // ===================================================[MOVE] 
-
     public void moveFromTo(Step step) {
-        updateCastleUntochness(step.from, step.to);
-
         setFromTo(step);
-    }
 
-    public void setFromTo(Step step) {
-        int cols = step.from.x, rows = step.from.y;
-        int colf = step.to.x, rowf = step.to.y;
-        pieces[colf, rowf] = pieces[cols, rows];
-        pieces[cols, rows] = null;
+        normalizeCastleInLayer();
     }
 
     // ===================================================[MOVE LOCATIONS] 

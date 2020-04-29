@@ -19,7 +19,7 @@ public class ShowFPS : MonoBehaviour {
         do {
             transform.position = Vector3.Lerp(transform.position, targetTo, 0.1f);
             yield return new WaitForFixedUpdate();
-        } while (transform.position != targetTo);
+        } while (Vector3.Distance(transform.position, targetTo) > 0.1);
 
         GetComponentInChildren<SimpleCameraController>().enabled = true;
     }

@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour {
     public static GameManager instance;
     public static int limitLayers = 10; //defautl
 
+    //debug
+    [SerializeField] private TextMeshProUGUI debugText;
     [SerializeField] private TextMeshProUGUI currentHarmonicText;
     [SerializeField] private GameObject WaringWindow;
     [SerializeField] private GameObject PromotationWindow;
@@ -53,15 +55,15 @@ public class GameManager : MonoBehaviour {
         layers.Add(new Layer());
 
         InstallSetPiece(new Rook(PlayerColor.White), 0, 0);
-        InstallSetPiece(new Knight(PlayerColor.White), 1, 0);
-        InstallSetPiece(new Bishop(PlayerColor.White), 2, 0);
-        InstallSetPiece(new Queen(PlayerColor.White), 3, 0);
+        InstallSetPiece(new Knight(PlayerColor.White), 1, 1);
+        InstallSetPiece(new Bishop(PlayerColor.White), 2, 1);
+        InstallSetPiece(new Queen(PlayerColor.White), 3, 1);
         InstallSetPiece(new King(PlayerColor.White), 4, 0);
-        InstallSetPiece(new Bishop(PlayerColor.White), 5, 0);
-        InstallSetPiece(new Knight(PlayerColor.White), 6, 0);
+        InstallSetPiece(new Bishop(PlayerColor.White), 5, 1);
+        InstallSetPiece(new Knight(PlayerColor.White), 6, 1);
         InstallSetPiece(new Rook(PlayerColor.White), 7, 0);
         for (int i = 0; i < 8; i++)
-            InstallSetPiece(new Pawn(PlayerColor.White), i, 1);
+            InstallSetPiece(new Pawn(PlayerColor.White), i, 2);
 
         InstallSetPiece(new Rook(PlayerColor.Black), 0, 7);
         InstallSetPiece(new Knight(PlayerColor.Black), 1, 7);
@@ -73,6 +75,7 @@ public class GameManager : MonoBehaviour {
         InstallSetPiece(new Rook(PlayerColor.Black), 7, 7);
         for (int i = 0; i < 8; i++)
             InstallSetPiece(new Pawn(PlayerColor.Black), i, 6);
+        layers[0].calRang();
 
         afterMove(new Vector2Int(0, 0));
     }
@@ -85,8 +88,6 @@ public class GameManager : MonoBehaviour {
 
         k ^= 1;
         showCurrentPlayer.text = "current player: " + curPlayer.color.ToString().ToLower();
-
-        Debug.Log(layers.Count);
     }
 
     public void ShowHarmonics() {
@@ -109,6 +110,7 @@ public class GameManager : MonoBehaviour {
     }
 
     private void renderHarmonic() {
+        debugText.text = layers[currentHarmonic].rang;
         currentHarmonicText.text = "#" + (currentHarmonic + 1).ToString() + " Weight: " + layers[currentHarmonic].weight;
         Display.instance.showTheBoard(layers[currentHarmonic].pieces);
     }
@@ -334,18 +336,15 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    System.Random rnd = new System.Random();
     private void deleteDublicates() {
-        foreach (Layer layer in layers)
-            layer.getDate();
-
         layers.Sort((l1, l2) => string.Compare(l1.rang, l2.rang));
 
         List<Layer> newLayers = new List<Layer>();
 
         int weight = layers[0].weight;
         for (int i = 1; i < layers.Count; i++) {
-            if (layers[i].getDate() == layers[i - 1].getDate()) {
+            Debug.Log(layers[i].rang == layers[i - 1].rang);
+            if (layers[i].rang == layers[i - 1].rang) {
                 weight += layers[i].weight;
             } else {
                 newLayers.Add(layers[i - 1]);

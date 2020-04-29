@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class CastleUI : CastleArrow, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler {
     public void OnPointerClick(PointerEventData eventData) {
         if (!isDeny[index]) {
-            Castling.instance.Castle(index);
+            GetComponentInParent<Castling>().Castle(index);
         }
     }
 
