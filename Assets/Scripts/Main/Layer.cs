@@ -6,6 +6,7 @@ using UnityEngine;
 public class Layer : CastleInLayer {
     public int weight;
     public Piece[,] pieces;
+    public string rang;
 
     private void castleInstance() {
         childLayer = this;
@@ -29,21 +30,21 @@ public class Layer : CastleInLayer {
     }
 
     public string getDate() {
-        string data = "";
+        string rang = "";
 
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (pieces[i, j] == null)
-                    data = data + 'n';
+                    rang = rang + 'n';
                 else
-                    data = data + (char) ('a' + (int) pieces[i, j].typeOfPiece + (pieces[i, j].colorOfPiece == PlayerColor.Black ? 6 : 0));
+                    rang = rang + (char) ('a' + (int) pieces[i, j].typeOfPiece + (pieces[i, j].colorOfPiece == PlayerColor.Black ? 6 : 0));
             }
         }
 
         for (int i = 0; i < 4; i++)
-            data = data + (char) ('a' + (isCastleAllow[i] ? 1 : 0));
+            rang = rang + (char) ('a' + (isCastleAllow[i] ? 1 : 0));
 
-        return data;
+        return rang;
     }
     public override int GetHashCode() {
         return getDate().GetHashCode();
