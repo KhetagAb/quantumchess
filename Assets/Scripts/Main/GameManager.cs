@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
     public static GameManager instance;
-    public static int limitLayers = 16; //defautl
+    public static int limitLayers = 10; //defautl
 
     [SerializeField] private TextMeshProUGUI currentHarmonicText;
     [SerializeField] private GameObject WaringWindow;
@@ -47,6 +47,17 @@ public class GameManager : MonoBehaviour {
     }
     private void Start() {
         Installation();
+
+        List<int> b = new List<int>(1000000);
+        for (int i = 0; i < 1000000; i++)
+            b.Add(rnd.Next());
+        Debug.Log(b.Count);
+
+        b.Sort();
+
+        Debug.Log("fin");
+
+        
     }
 
     private void Installation() {
@@ -85,6 +96,8 @@ public class GameManager : MonoBehaviour {
 
         k ^= 1;
         showCurrentPlayer.text = "current player: " + curPlayer.color.ToString().ToLower();
+
+        Debug.Log(layers.Count);
     }
 
     public void ShowHarmonics() {
@@ -107,7 +120,7 @@ public class GameManager : MonoBehaviour {
     }
 
     private void renderHarmonic() {
-        currentHarmonicText.text = "#" + (currentHarmonic + 1).ToString() + " Weigth: " + layers[currentHarmonic].weight;
+        currentHarmonicText.text = "#" + (currentHarmonic + 1).ToString() + " Weight: " + layers[currentHarmonic].weight;
         Display.instance.showTheBoard(layers[currentHarmonic].pieces);
     }
 
@@ -301,15 +314,15 @@ public class GameManager : MonoBehaviour {
             float first = UnityEngine.Random.Range(0.0f, sum); // TrulyRandom 
 
             // DEBUG
-            Debug.LogAssertion("All: " + sum);
-            Debug.LogAssertion("ID: " + firstID.Key + ", Count: " + firstID.Value + ". Capc: " + first);
-            Debug.LogAssertion("ID: " + secondID.Key + " , Count: " + secondID.Value + ". Capc: " + (sum - first));
+            Debug.LogAssertionFormat("All: {0}", sum);
+            Debug.LogAssertionFormat("ID: {0} Count: {1}. Capc: {2}", firstID.Key, firstID.Value, first);
+            Debug.LogAssertionFormat("ID: {0} Count: {1}. Capc: {2}", secondID.Key, secondID.Value, sum - first);
 
             if (first <= firstID.Value) {
-                Debug.LogAssertion(firstID.Key + " WIN!");
+                Debug.LogAssertionFormat("{0} WIN!", firstID.Key);
                 layers.RemoveAll(ID => ID.pieces[col, row] == secondID.Key);
             } else {
-                Debug.LogAssertion(secondID.Key + " WIN!");
+                Debug.LogAssertionFormat("{0} WIN!", secondID.Key);
                 layers.RemoveAll(ID => ID.pieces[col, row] == firstID.Key);
             }
         }
@@ -332,6 +345,8 @@ public class GameManager : MonoBehaviour {
             }
         }
     }
+
+    System.Random rnd = new System.Random();
     private void deleteDublicates() {
         layers.Sort((l1, l2) => string.Compare(l1.getDate(), l2.getDate()));
 
@@ -351,5 +366,7 @@ public class GameManager : MonoBehaviour {
         newLayers[newLayers.Count - 1].weight = weight;
 
         layers = newLayers;
+
+     //   layers.Sort((l1, l2) => (rnd.Next(100) < 50 ? 1 : -1));
     }
 }
