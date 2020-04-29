@@ -47,17 +47,6 @@ public class GameManager : MonoBehaviour {
     }
     private void Start() {
         Installation();
-
-        List<int> b = new List<int>(1000000);
-        for (int i = 0; i < 1000000; i++)
-            b.Add(rnd.Next());
-        Debug.Log(b.Count);
-
-        b.Sort();
-
-        Debug.Log("fin");
-
-        
     }
 
     private void Installation() {
@@ -235,7 +224,6 @@ public class GameManager : MonoBehaviour {
     }
 
     // ============================================[AFTER MOVE]
-
     public void afterMove(Vector2Int finishGridPoint) {
         resolveConflicts(finishGridPoint);
         quantumNormalize();
@@ -348,7 +336,10 @@ public class GameManager : MonoBehaviour {
 
     System.Random rnd = new System.Random();
     private void deleteDublicates() {
-        layers.Sort((l1, l2) => string.Compare(l1.getDate(), l2.getDate()));
+        foreach (Layer layer in layers)
+            layer.getDate();
+
+        layers.Sort((l1, l2) => string.Compare(l1.rang, l2.rang));
 
         List<Layer> newLayers = new List<Layer>();
 
@@ -366,7 +357,5 @@ public class GameManager : MonoBehaviour {
         newLayers[newLayers.Count - 1].weight = weight;
 
         layers = newLayers;
-
-     //   layers.Sort((l1, l2) => (rnd.Next(100) < 50 ? 1 : -1));
     }
 }
