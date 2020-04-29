@@ -47,17 +47,6 @@ public class GameManager : MonoBehaviour {
     }
     private void Start() {
         Installation();
-
-        List<int> b = new List<int>(1000000);
-        for (int i = 0; i < 1000000; i++)
-            b.Add(rnd.Next());
-        Debug.Log(b.Count);
-
-        b.Sort();
-
-        Debug.Log("fin");
-
-        
     }
 
     private void Installation() {
